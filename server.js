@@ -20,6 +20,34 @@ const server = http.createServer((req, res) => {
                 serveFile('register.html', 'text/html', res)
                 break
             }
+            case '/rooms': {
+                serveFile('rooms.html', 'text/html', res)
+                break
+            }
+            case '/about': {
+                serveFile('about.html', 'text/html', res)
+                break
+            }
+            case '/blog': {
+                serveFile('blog.html', 'text/html', res)
+                break
+            }
+            case '/contact': {
+                serveFile('contact.html', 'text/html', res)
+                break
+            }
+            case '/elements': {
+                serveFile('elements.html', 'text/html', res)
+                break
+            }
+            case '/single-blog': {
+                serveFile('single-blog.html', 'text/html', res)
+                break
+            }
+            case '/login': {
+                serveFile('login.html', 'text/html', res)
+                break
+            }
             default: {
                 // Handle static files (CSS, JS, images, etc.)
                 if (req.url.match(/\.(css|js|png|jpg|jpeg|gif|svg)$/)) {
