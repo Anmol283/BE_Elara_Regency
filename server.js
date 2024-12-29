@@ -46,8 +46,7 @@ const server = http.createServer((req, res) => {
             }
             case '/login': {
                 serveFile('login.html', 'text/html', res)
-                break
-            }
+
             default: {
                 // Handle static files (CSS, JS, images, etc.)
                 if (req.url.match(/\.(css|js|png|jpg|jpeg|gif|svg)$/)) {
