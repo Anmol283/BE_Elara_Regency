@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="css/animate.css">
     <link rel="stylesheet" href="css/slicknav.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- <link rel="stylesheet" href="css/responsive.css"> -->
 </head>
 
@@ -52,6 +53,8 @@
                                         <li><a class="active" href="/index">home</a></li>
                                         <li><a href="/rooms">rooms</a></li>
                                         <li><a href="/about">About</a></li>
+                                        <li><a href="/blog">blog</a></li>
+                                        <li><a href="/elements">elements</a></li>
                                         <li><a href="/blog">blog</a></a>
                                         <li><a href="/contact">Contact</a></li>
                                     </ul>
@@ -130,11 +133,19 @@
                 </div>
             </div>
         </div>
+        <div class="owl-nav">
+            <div class="owl-prev">
+                <img src="https://i.imgur.com/vPZGHKp.png" alt="Previous" width="24" height="24">
+            </div>
+            <div class="owl-next">
+                <img src="https://i.imgur.com/gzcYzXN.png" alt="Next" width="24" height="24">
+            </div>
+        </div>
     </div>
     <!-- slider_area_end -->
 
     <!-- about_area_start -->
-    <div class="about_area">
+    <div class="about_area" data-aos="fade-up">
         <div class="container">
             <div class="row">
                 <div class="col-xl-5 col-lg-5">
@@ -228,7 +239,7 @@
     <!-- offers_area_end -->
 
     <!-- video_area_start -->
-    <div class="video_area video_bg overlay">
+    <div class="video_area video_bg overlay" data-aos="zoom-in">
         <div class="video_area_inner text-center">
             <span>Montana Sea View</span>
             <h3>Relax and Enjoy your <br>
@@ -241,7 +252,7 @@
     <!-- video_area_end -->
 
     <!-- about_area_start -->
-    <div class="about_area">
+    <div class="about_area" data-aos="fade-up">
         <div class="container">
             <div class="row">
                 <div class="col-xl-7 col-lg-7">
@@ -273,7 +284,7 @@
     <!-- about_area_end -->
 
     <!-- features_room_startt -->
-    <div class="features_room">
+    <div class="features_room" data-aos="fade-up">
         <div class="container">
             <div class="row">
                 <div class="col-xl-12">
@@ -351,7 +362,7 @@
                             </div>
                             <div class="col-xl-6 col-md-6">
                                 <div class="phone_num">
-                                    <a href="#" class="mobile_no">+10 576 377 4789</a>
+                                    <a href="#" class="mobile_no"><i class="fas fa-phone"></i> +10 576 377 4789</a>
                                 </div>
                             </div>
                         </div>
@@ -408,7 +419,7 @@
     <!-- instragram_area_end -->
 
     <!-- footer -->
-    <footer class="footer">
+    <footer class="footer" data-aos="fade-up">
         <div class="footer_top">
             <div class="container">
                 <div class="row">
@@ -417,9 +428,9 @@
                             <h3 class="footer_title">
                                 address
                             </h3>
-                            <p class="footer_text"> 200, Green road, Mongla, <br>
+                            <p class="footer_text"> <i class="fas fa-map-marker-alt"></i> 200, Green road, Mongla, <br>
                                 New Yor City USA</p>
-                            <a href="#" class="line-button">Get Direction</a>
+                            <a href="#" class="line-button"><i class="fas fa-directions"></i> Get Direction</a>
                         </div>
                     </div>
                     <div class="col-xl-3 col-md-6 col-lg-3">
@@ -427,8 +438,8 @@
                             <h3 class="footer_title">
                                 Reservation
                             </h3>
-                            <p class="footer_text">+10 367 267 2678 <br>
-                                reservation@montana.com</p>
+                            <p class="footer_text"><i class="fas fa-phone"></i> +10 367 267 2678 <br>
+                                <i class="fas fa-envelope"></i> reservation@montana.com</p>
                         </div>
                     </div>
                     <div class="col-xl-2 col-md-6 col-lg-2">
@@ -451,9 +462,9 @@
                             </h3>
                             <form action="#" class="newsletter_form">
                                 <input type="text" placeholder="Enter your mail">
-                                <button type="submit">Sign Up</button>
+                                <button type="submit"><i class="fas fa-paper-plane"></i> Sign Up</button>
                             </form>
-                            <p class="newsletter_text">Subscribe newsletter to get updates</p>
+                            <p class="newsletter_text"><i class="fas fa-envelope-open-text"></i> Subscribe newsletter to get updates</p>
                         </div>
                     </div>
                 </div>
@@ -474,17 +485,17 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
                             <ul>
                                 <li>
                                     <a href="#">
-                                        <i class="fa fa-facebook-square"></i>
+                                        <i class="fab fa-facebook"></i>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#">
-                                        <i class="fa fa-twitter"></i>
+                                        <i class="fab fa-twitter"></i>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#">
-                                        <i class="fa fa-instagram"></i>
+                                        <i class="fab fa-instagram"></i>
                                     </a>
                                 </li>
                             </ul>
@@ -589,7 +600,15 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
         });
     </script>
 
-
+    <!-- AOS JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100
+        });
+    </script>
 
 </body>
 
