@@ -4,61 +4,147 @@ const path = require('path')
 const querystring = require('querystring')
 
 const PORT = 8080
-
 const server = http.createServer((req, res) => {
-    if (req.method === 'GET') {
+    if (req.method == 'GET') {
         switch (req.url) {
             case '/': {
-                serveFile('login.html', 'text/html', res)
-                break
+                fs.readFile(path.join(__dirname, 'login.html'), 'utf-8', (err, data) => {
+                    if (err) {
+                        res.writeHead(500, { 'Content-Type': 'text/plain' })
+                        res.end('Error reading the login page')
+                        return
+                    }
+                    res.writeHead(200, { 'Content-Type': 'text/html' })
+                    res.end(data)
+                });
+                break;
             }
             case '/index': {
-                serveFile('index.html', 'text/html', res)
-                break
+                fs.readFile(path.join(__dirname, 'index.html'), 'utf-8', (err, data) => {
+                    if (err) {
+                        res.writeHead(500, { 'Content-Type': 'text/plain' })
+                        res.end('Error reading the dashboard page')
+                        return
+                    }
+                    res.writeHead(200, { 'Content-Type': 'text/html' })
+                    res.end(data)
+                })
+                break;
             }
-            case '/register': {
-                serveFile('register.html', 'text/html', res)
-                break
-            }
-            case '/rooms': {
-                serveFile('rooms.html', 'text/html', res)
-                break
-            }
-            case '/about': {
-                serveFile('about.html', 'text/html', res)
-                break
-            }
-            case '/blog': {
-                serveFile('blog.html', 'text/html', res)
-                break
+            case '/signup': {
+                fs.readFile(path.join(__dirname, 'signup.html'), 'utf-8', (err, data) => {
+                    if (err) {
+                        res.writeHead(500, { 'Content-Type': 'text/plain' })
+                        res.end('Error reading the registration page')
+                        return
+                    }
+                    res.writeHead(200, { 'Content-Type': 'text/html' })
+                    res.end(data)
+                })
+                break;
             }
             case '/contact': {
-                serveFile('contact.html', 'text/html', res)
-                break
+                fs.readFile(path.join(__dirname, 'contact.html'), 'utf-8', (err, data) => {
+                    if (err) {
+                        res.writeHead(500, { 'Content-Type': 'text/plain' })
+                        res.end('Error reading the dashboard page')
+                        return
+                    }
+                    res.writeHead(200, { 'Content-Type': 'text/html' })
+                    res.end(data)
+                })
+                break;
             }
-            case '/elements': {
-                serveFile('elements.html', 'text/html', res)
-                break
+            case '/department': {
+                fs.readFile(path.join(__dirname, 'department.html'), 'utf-8', (err, data) => {
+                    if (err) {
+                        res.writeHead(500, { 'Content-Type': 'text/plain' })
+                        res.end('Error reading the dashboard page')
+                        return
+                    }
+                    res.writeHead(200, { 'Content-Type': 'text/html' })
+                    res.end(data)
+                })
+                break;
             }
-            case '/single-blog': {
-                serveFile('single-blog.html', 'text/html', res)
-                break
+            case '/blog': {
+                fs.readFile(path.join(__dirname, 'blog.html'), 'utf-8', (err, data) => {
+                    if (err) {
+                        res.writeHead(500, { 'Content-Type': 'text/plain' })
+                        res.end('Error reading the dashboard page')
+                        return
+                    }
+                    res.writeHead(200, { 'Content-Type': 'text/html' })
+                    res.end(data)
+                })
+                break;
             }
-            case '/login': {
-                serveFile('login.html', 'text/html', res)
-
+            case '/review': {
+                fs.readFile(path.join(__dirname, 'review.html'), 'utf-8', (err, data) => {
+                    if (err) {
+                        res.writeHead(500, { 'Content-Type': 'text/plain' })
+                        res.end('Error reading the dashboard page')
+                        return
+                    }
+                    res.writeHead(200, { 'Content-Type': 'text/html' })
+                    res.end(data)
+                })
+                break;
+            }
+            case '/about': {
+                fs.readFile(path.join(__dirname, 'about.html'), 'utf-8', (err, data) => {
+                    if (err) {
+                        res.writeHead(500, { 'Content-Type': 'text/plain' })
+                        res.end('Error reading the dashboard page')
+                        return
+                    }
+                    res.writeHead(200, { 'Content-Type': 'text/html' })
+                    res.end(data)
+                })
+                break;
+            }
+            case '/appointment': {
+                fs.readFile(path.join(__dirname, 'appointment.html'), 'utf-8', (err, data) => {
+                    if (err) {
+                        res.writeHead(500, { 'Content-Type': 'text/plain' })
+                        res.end('Error reading the dashboard page')
+                        return
+                    }
+                    res.writeHead(200, { 'Content-Type': 'text/html' })
+                    res.end(data)
+                })
+                break;
+            }
+            case '/doctor': {
+                fs.readFile(path.join(__dirname, 'doctor.html'), 'utf-8', (err, data) => {
+                    if (err) {
+                        res.writeHead(500, { 'Content-Type': 'text/plain' })
+                        res.end('Error reading the dashboard page')
+                        return
+                    }
+                    res.writeHead(200, { 'Content-Type': 'text/html' })
+                    res.end(data)
+                })
+                break;
+            }
+            case (req.url.match(/\.(jpg|jpeg|png|gif|css)$/) || {}).input: {
+                const imagePath = path.join(__dirname, req.url);
+                fs.readFile(imagePath, (err, data) => {
+                    if (err) {
+                        res.writeHead(404, { 'Content-Type': 'text/plain' });
+                        res.end('Image not found');
+                    } else {
+                        const ext = path.extname(imagePath).toLowerCase();
+                        const contentType = `image/${ext.substr(1)}`;
+                        res.writeHead(200, { 'Content-Type': contentType });
+                        res.end(data);
+                    }
+                });
+                break;
+            }
             default: {
-                // Handle static files (CSS, JS, images, etc.)
-                if (req.url.match(/\.(css|js|png|jpg|jpeg|gif|svg)$/)) {
-                    const filePath = path.join(__dirname, req.url)
-                    const extname = path.extname(filePath)
-                    const contentType = getContentType(extname)
-                    
-                    serveFile(req.url.substr(1), contentType, res)
-                } else {
-                    res.writeHead(404, { 'Content-Type': 'text/plain' })
-                    res.end('Not Found')
-                }
+                res.writeHead(404, { 'Content-Type': 'text/plain' })
+                res.end('Not Found')
             }
         }
     }
@@ -93,41 +179,58 @@ const server = http.createServer((req, res) => {
                             res.end()
                         } else {
                             // If user is not found, redirect to the register page
-                            res.writeHead(302, { 'Location': '/register' })
+                            res.writeHead(302, { 'Location': '/signup' })
                             res.end()
                         }
                     })
                 })
                 break
             }
-            case '/register': {
+            case '/signup': {
                 let body = ''
                 req.on('data', chunk => {
                     body += chunk.toString()
                 })
-
+            
                 req.on('end', () => {
                     const { username, password } = querystring.parse(body)
+                    console.log('Received signup request:', { username, password }) // Log the received data
+            
+                    if (!username || !password) {
+                        console.log('Invalid signup data')
+                        res.writeHead(400, { 'Content-Type': 'text/plain' })
+                        res.end('Invalid signup data')
+                        return
+                    }
+            
                     const userData = { username, password }
-
-                    // Read existing users from users.json or create an empty array if file doesn't exist
+            
                     fs.readFile(path.join(__dirname, 'users.json'), 'utf-8', (err, data) => {
                         let users = []
-
+            
                         if (!err) {
-                            users = JSON.parse(data)
+                            try {
+                                users = JSON.parse(data)
+                            } catch (parseError) {
+                                console.error('Error parsing users.json:', parseError)
+                                res.writeHead(500, { 'Content-Type': 'text/plain' })
+                                res.end('Error processing user data')
+                                return
+                            }
+                        } else {
+                            console.log('users.json not found, creating new file')
                         }
-
-                        // Save new user to the users array
+            
                         users.push(userData)
-
-                        // Write the updated users array to users.json
-                        fs.writeFile(path.join(__dirname, 'users.json'), JSON.stringify(users, null, 2), (err) => {
-                            if (err) {
+            
+                        fs.writeFile(path.join(__dirname, 'users.json'), JSON.stringify(users, null, 2), (writeErr) => {
+                            if (writeErr) {
+                                console.error('Error saving registration data:', writeErr)
                                 res.writeHead(500, { 'Content-Type': 'text/plain' })
                                 res.end('Error saving registration data')
                                 return
                             }
+                            console.log('User registered successfully:', username)
                             res.writeHead(302, { 'Location': '/' })
                             res.end()
                         })
@@ -143,39 +246,6 @@ const server = http.createServer((req, res) => {
     }
 })
 
-function serveFile(filename, contentType, res) {
-    fs.readFile(path.join(__dirname, filename), (err, data) => {
-        if (err) {
-            res.writeHead(500, { 'Content-Type': 'text/plain' })
-            res.end(`Error reading the ${filename} file`)
-            return
-        }
-        res.writeHead(200, { 'Content-Type': contentType })
-        res.end(data)
-    })
-}
-
-function getContentType(extname) {
-    switch (extname) {
-        case '.js':
-            return 'text/javascript'
-        case '.css':
-            return 'text/css'
-        case '.png':
-            return 'image/png'
-        case '.jpg':
-        case '.jpeg':
-            return 'image/jpeg'
-        case '.gif':
-            return 'image/gif'
-        case '.svg':
-            return 'image/svg+xml'
-        default:
-            return 'text/html'
-    }
-}
-
 server.listen(PORT, () => {
     console.log(`Server is running at http://localhost:${PORT}`)
 })
-
