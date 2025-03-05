@@ -28,25 +28,25 @@ app.get('/api/register', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'register.html')) // Serve the register HTML file
 })
 app.get('/api/rooms', (req, res
-  ) => {
-    res.sendFile(path.join(__dirname, 'views', 'rooms.html'))
+) => {
+  res.sendFile(path.join(__dirname, 'views', 'rooms.html'))
 })
 app.get('/api/elements', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'elements.html'))
 })
 app.get('/api/blog', (req, res
-    ) => {
-        res.sendFile(path.join(__dirname, 'views', 'blog.html'))
+) => {
+  res.sendFile(path.join(__dirname, 'views', 'blog.html'))
 })
 app.get('/api/contact', (req, res) => {
-    res.sendFile(path.join(__dirname, 'views', 'contact.html'))
-    })
-    app.get('/api/about', (req, res) => {
-        res.sendFile(path.join(__dirname, 'views', 'about.html'))
-        })
-        app.get('/api/elements', (req, res) => {
-            res.sendFile(path.join(__dirname, 'views', 'elements.html'))
-            })
+  res.sendFile(path.join(__dirname, 'views', 'contact.html'))
+})
+app.get('/api/about', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'about.html'))
+})
+app.get('/api/elements', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'elements.html'))
+})
 // Use error handler middleware for catching and handling errors
 app.use(errorHandler) // Handle errors globally
 // Start the server and listen on the specified port
