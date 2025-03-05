@@ -4,7 +4,7 @@ const app = express();
 const PORT = 8080;
 
 // Import middlewares from separate files
-const morganLogger = require('./middlewares/custom-logger'); // Morgan for request logging (third-party)
+const morganLogger = require('./middlewares/logger'); // Morgan for request logging (third-party)
 const customLogger = require('./middlewares/custom-logger'); // Your custom logger (if you create a new file for it)
 const security = require('./middlewares/security'); // Helmet for security headers
 const cookies = require('./middlewares/cookies'); // Cookie-parser for cookies

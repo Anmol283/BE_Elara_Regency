@@ -2,7 +2,6 @@ const express = require('express') // Express for routing
 const path = require('path') // Path to handle file paths
 const fs = require('fs') // FS module for reading and writing files
 const router = express.Router() // Create an instance of Express Router
-
 // Login route
 router.post('/login', (req, res, next) => {
   const { username, password } = req.body // Destructure username and password from the request body
@@ -20,7 +19,6 @@ router.post('/login', (req, res, next) => {
     }
   })
 })
-
 // Register route
 router.post('/register', (req, res, next) => {
   const { username, password } = req.body // Destructure username and password
