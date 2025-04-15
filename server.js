@@ -1,83 +1,192 @@
-const express = require('express'); // Express for routing and middleware management
-const path = require('path'); // Path to handle file paths
-const app = express();
-const PORT = 8080;
+const express = require("express")
+const path = require("path")
+const fs = require("fs")
+const cors = require("cors")
+const helmet = require("helmet")
+const morgan = require("morgan")
+const compression = require("compression")
+const cookieParser = require("cookie-parser")
+const apiRoutes = require("./api/apiRoutes")
 
-// Import middlewares from separate files
-const morganLogger = require('./middlewares/logger'); // Morgan for request logging (third-party)
-const customLogger = require('./middlewares/custom-logger'); // Your custom logger
-const security = require('./middlewares/security'); // Helmet for security headers
-const cookies = require('./middlewares/cookies'); // Cookie-parser for cookies
-const corsMiddleware = require('./middlewares/cors'); // CORS for cross-origin requests
-const compress = require('./middlewares/compression'); // Compression for performance
+const app = express()
+const PORT = process.env.PORT || 3000
 
-// Middleware to handle JSON and URL-encoded data in POST requests
-app.use(express.json()); // To parse JSON bodies
-app.use(express.urlencoded({ extended: true })); // To parse URL-encoded data
+// Set EJS as the view engine
+app.set("view engine", "ejs")
+app.set("views", path.join(__dirname, "views"))
 
-// Use the imported third-party middlewares and custom logger
-app.use(morganLogger); // Log each request with morgan
-app.use(customLogger); // Use your custom logger (optional, after morgan)
-app.use(security); // Add security headers
-app.use(cookies); // Parse cookies
-app.use(corsMiddleware); // Enable CORS
-app.use(compress); // Compress responses
+// Middleware
+app.use(cors())
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      useDefaults: true,
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: ["'self'", "'unsafe-inline'", "https://cdn.jsdelivr.net", "https://code.jquery.com"],
+        styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://cdn.jsdelivr.net"],
+        fontSrc: ["'self'", "https://fonts.gstatic.com", "https://cdn.jsdelivr.net"],
+        imgSrc: ["'self'", "data:", "https://images.unsplash.com"],
+        connectSrc: ["'self'"],
+      }
+    }
+  }),
+)
+app.use(morgan("dev"))
+app.use(compression())
+app.use(cookieParser())
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+app.use(express.static(path.join(__dirname, "public")))
 
-// Serve static files (HTML, CSS, JS) from the /public directory
-app.use(express.static(path.join(__dirname, 'public')));
+// Custom middleware to check if user is authenticated
+const isAuthenticated = (req, res, next) => {
+  const token = req.cookies.token
+  if (!token) {
+    return res.redirect("/login")
+  }
+  try {
+    // In a real app, you would verify the token
+    // For this example, we'll just check if it exists
+    next()
+  } catch (error) {
+    res.clearCookie("token")
+    return res.redirect("/login")
+  }
+}
 
-// Import API routes from apiRoutes.js
-const apiRoutes = require('./api/apiRoutes'); // Import the API routes for login and register functionality
-app.use('/api', apiRoutes); // Mount the API routes on /api path
+// Custom middleware to check if user is admin
+const isAdmin = (req, res, next) => {
+  const token = req.cookies.token
+  const isAdminUser = req.cookies.isAdmin === "true"
 
-// Serve login.html at the root URL
-app.get('/', (req, res) => {
-  res.status(200).sendFile(path.join(__dirname, 'views', 'login.html')); // Explicit 200 for success
-});
+  if (!token || !isAdminUser) {
+    return res.redirect("/login")
+  }
+  next()
+}
 
-// Serve dashboard.html when user is authenticated
-app.get('/api/dashboard', (req, res) => {
-  res.status(200).sendFile(path.join(__dirname, 'views', 'dashboard.html')); // Explicit 200 for success
-});
+// Middleware to redirect admin users to dashboard
+const redirectAdminToDashboard = (req, res, next) => {
+  const isAdminUser = req.cookies.isAdmin === "true"
+  if (isAdminUser && req.path !== "/admin-dashboard") {
+    return res.redirect("/admin-dashboard")
+  }
+  next()
+}
 
-// Serve register.html when user needs to register
-app.get('/api/register', (req, res) => {
-  res.status(200).sendFile(path.join(__dirname, 'views', 'register.html')); // Explicit 200 for success
-});
+// API Routes
+app.use("/api", apiRoutes)
 
-app.get('/api/rooms', (req, res) => {
-  res.status(200).sendFile(path.join(__dirname, 'views', 'rooms.html')); // Explicit 200 for success
-});
+// Admin routes
+app.get("/admin-dashboard", isAdmin, (req, res) => {
+  // Read users data
+  const usersData = JSON.parse(fs.readFileSync("./models/users.json", "utf8"))
 
-app.get('/api/elements', (req, res) => {
-  res.status(200).sendFile(path.join(__dirname, 'views', 'elements.html')); // Explicit 200 for success
-});
+  res.render("admin-dashboard", {
+    title: "Admin Dashboard - Elara Regency",
+    users: usersData.users,
+    isLoggedIn: true,
+    isAdmin: true,
+  })
+})
 
-app.get('/api/blog', (req, res) => {
-  res.status(200).sendFile(path.join(__dirname, 'views', 'blog.html')); // Explicit 200 for success
-});
+// Page Routes for admin users
+app.get("/", redirectAdminToDashboard, (req, res) => {
+  res.render("home", {
+    title: "Elara Regency - Luxury Hotel",
+    isLoggedIn: !!req.cookies.token,
+  })
+})
 
-app.get('/api/contact', (req, res) => {
-  res.status(200).sendFile(path.join(__dirname, 'views', 'contact.html')); // Explicit 200 for success
-});
+app.get("/register", (req, res) => {
+  if (req.cookies.token) {
+    const isAdminUser = req.cookies.isAdmin === "true"
+    if (isAdminUser) {
+      return res.redirect("/admin-dashboard")
+    }
+    return res.redirect("/")
+  }
+  res.render("register", {
+    title: "Register - Elara Regency",
+    isLoggedIn: false,
+  })
+})
 
-app.get('/api/about', (req, res) => {
-  res.status(200).sendFile(path.join(__dirname, 'views', 'about.html')); // Explicit 200 for success
-});
+app.get("/login", (req, res) => {
+  if (req.cookies.token) {
+    const isAdminUser = req.cookies.isAdmin === "true"
+    if (isAdminUser) {
+      return res.redirect("/admin-dashboard")
+    }
+    return res.redirect("/")
+  }
+  res.render("login", {
+    title: "Login - Elara Regency",
+    isLoggedIn: false,
+  })
+})
 
-// 404 Handler for undefined routes
-app.use((req, res) => {
-  res.status(404).send({
-    error: 'Not Found',
-    message: 'The requested resource could not be found on the server.'
-  });
-});
+// Apply admin redirection middleware to all regular pages
+const regularPages = ["/rooms", "/locations", "/contact", "/about", "/blog"]
+regularPages.forEach((page) => {
+  app.get(page, redirectAdminToDashboard, (req, res) => {
+    res.render(page.substring(1), {
+      title: `${page.substring(1).charAt(0).toUpperCase() + page.substring(2)} - Elara Regency`,
+      isLoggedIn: !!req.cookies.token,
+    })
+  })
+})
 
-// Use error handler middleware for catching and handling errors
-const errorHandler = require('./middlewares/errorHandler'); // Import error handler middleware
-app.use(errorHandler); // Handle errors globally (500 status)
+app.get("/reservation", isAuthenticated, redirectAdminToDashboard, (req, res) => {
+  res.render("reservation", {
+    title: "Make a Reservation - Elara Regency",
+    isLoggedIn: true,
+  })
+})
 
-// Start the server and listen on the specified port
+app.get("/logout", (req, res) => {
+  res.clearCookie("token")
+  res.clearCookie("isAdmin")
+  res.redirect("/")
+})
+
+// Location detail pages
+app.get("/locations/:location", redirectAdminToDashboard, (req, res) => {
+  const location = req.params.location
+  res.render("location-detail", {
+    title: `${location.charAt(0).toUpperCase() + location.slice(1)} - Elara Regency`,
+    location: location,
+    isLoggedIn: !!req.cookies.token,
+  })
+})
+
+// Initialize users.json if it doesn't exist
+const initializeUsersJson = () => {
+  const usersFilePath = "./models/users.json"
+  if (!fs.existsSync("./models")) {
+    fs.mkdirSync("./models")
+  }
+
+  if (!fs.existsSync(usersFilePath)) {
+    const initialData = {
+      users: [
+        {
+          id: 1,
+          name: "Admin User",
+          email: "admin@elararegency.com",
+          password: "admin123", // In a real app, this would be hashed
+          isAdmin: true,
+        },
+      ],
+    }
+    fs.writeFileSync(usersFilePath, JSON.stringify(initialData, null, 2))
+    console.log("Created initial users.json file")
+  }
+}
+
+// Start the server
 app.listen(PORT, () => {
-  console.log(`Server is running at http://localhost:${PORT}`);
-});
+  initializeUsersJson()
+  console.log(`Server is running on http://localhost:${PORT}`)
+})
