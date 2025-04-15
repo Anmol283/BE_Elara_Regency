@@ -1,30 +1,18 @@
-[
-  {
-    "username": "abc",
-    "password": "123"
-  },
-  {
-    "username": "user1",
-    "password": "password1"
-  },
-  {
-    "username": "admin",
-    "password": "admin"
-  },
-  {
-    "username": "arsh",
-    "password": "arsh"
-  },
-  {
-    "username": "elara",
-    "password": "123"
-  },
-  {
-    "username": "arsh",
-    "password": "1234"
-  },
-  {
-    "username": "arsh",
-    "password": "123"
-  }
-]
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Admin User",
+      "email": "admin@elararegency.com",
+      "password": "admin123",
+      "isAdmin": true
+    },
+    {
+      "id": 4,
+      "name": "Arshdeep Singh",
+      "email": "arshth134@gmail.com",
+      "password": "123456",
+      "isAdmin": false
+    }
+  ]
+}

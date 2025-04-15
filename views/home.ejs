@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Lora:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="home-page">
+    <!-- Header -->
+    <header class="header">
+      <div class="container">
+        <nav class="navbar">
+          <a href="/" class="logo">Elara Regency</a>
+          <ul class="nav-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/rooms">Rooms</a></li>
+            <li><a href="/locations">Locations</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/blog">Blog</a></li>
+            <li><a href="/contact">Contact</a></li>
+            <% if (isLoggedIn) { %>
+              <li><a href="/reservation">Reservation</a></li>
+              <li><a href="/logout">Logout</a></li>
+            <% } else { %>
+              <li><a href="/login">Login</a></li>
+              <li><a href="/register">Register</a></li>
+            <% } %>
+          </ul>
+          <div class="hamburger">
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Hero Section with Carousel -->
+    <section class="hero">
+      <div class="hero-carousel">
+        <div class="hero-slide active" style="background-image: url('https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1920&q=80')">
+          <div class="hero-overlay"></div>
+        </div>
+        <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?auto=format&fit=crop&w=1920&q=80')">
+          <div class="hero-overlay"></div>
+        </div>
+        <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1920&q=80')">
+          <div class="hero-overlay"></div>
+        </div>
+        <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=1920&q=80')">
+          <div class="hero-overlay"></div>
+        </div>
+        <div class="carousel-controls">
+          <div class="carousel-dot active" data-index="0"></div>
+          <div class="carousel-dot" data-index="1"></div>
+          <div class="carousel-dot" data-index="2"></div>
+          <div class="carousel-dot" data-index="3"></div>
+        </div>
+        <div class="carousel-arrow prev"><i class="bi bi-chevron-left"></i></div>
+        <div class="carousel-arrow next"><i class="bi bi-chevron-right"></i></div>
+      </div>
+      <div class="hero-content">
+        <h1>Experience Unparalleled <span class="gold-text">Luxury</span></h1>
+        <p>Where every moment is crafted to perfection and every detail tells a story of elegance.</p>
+        <a href="/rooms" class="btn">Explore Our Rooms</a>
+      </div>
+    </section>
+
+    <!-- Welcome Section -->
+    <section class="section">
+      <div class="container">
+        <div class="section-title">
+          <h2>Welcome to Elara Regency</h2>
+        </div>
+        <div class="row animate">
+          <div class="text-center">
+            <p>Nestled in the heart of the world's most captivating destinations, Elara Regency stands as a beacon of luxury and sophistication. Our hotels are designed to provide an unparalleled experience, where every detail is meticulously crafted to exceed your expectations.</p>
+            <p>From the moment you step into our grand lobbies, you are enveloped in an atmosphere of elegance and warmth. Our dedicated staff is committed to providing personalized service that anticipates your every need, ensuring that your stay with us is nothing short of extraordinary.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section" style="background-color: var(--dark-secondary);">
+      <div class="container">
+        <div class="section-title">
+          <h2 style="color: var(--cream);">Our Amenities</h2>
+        </div>
+        <div class="features animate">
+          <div class="feature">
+            <div class="feature-icon">
+              <i class="bi bi-water"></i>
+            </div>
+            <h3>Infinity Pools</h3>
+            <p>Immerse yourself in our stunning infinity pools with panoramic views, perfect for relaxation and rejuvenation.</p>
+          </div>
+          
+          <div class="feature">
+            <div class="feature-icon">
+              <i class="bi bi-cup-hot"></i>
+            </div>
+            <h3>Gourmet Dining</h3>
+            <p>Experience culinary excellence at our award-winning restaurants featuring world-class chefs and exquisite menus.</p>
+          </div>
+          
+          <div class="feature">
+            <div class="feature-icon">
+              <i class="bi bi-gem"></i>
+            </div>
+            <h3>Luxury Spa</h3>
+            <p>Indulge in our premium spa treatments designed to pamper your body and rejuvenate your spirit.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Room Showcase -->
+    <section class="section">
+      <div class="container">
+        <div class="section-title">
+          <h2>Luxurious Accommodations</h2>
+        </div>
+        <div class="rooms-grid animate">
+          <div class="room-card">
+            <img src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=800&q=80" alt="Standard Room" class="room-img">
+            <div class="room-details">
+              <h3>Standard Room</h3>
+              <div class="room-price">From $299 per night</div>
+              <p>Our elegantly appointed standard rooms offer the perfect blend of comfort and sophistication.</p>
+              <div class="room-features">
+                <span class="room-feature"><i class="bi bi-wifi"></i> Free Wi-Fi</span>
+                <span class="room-feature"><i class="bi bi-tv"></i> 55" Smart TV</span>
+                <span class="room-feature"><i class="bi bi-people"></i> 2 Guests</span>
+              </div>
+              <a href="/rooms" class="btn btn-outline">View Details</a>
+            </div>
+          </div>
+          <div class="room-card">
+            <img src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461?auto=format&fit=crop&w=800&q=80" alt="Deluxe Suite" class="room-img">
+            <div class="room-details">
+              <h3>Deluxe Suite</h3>
+              <div class="room-price">From $499 per night</div>
+              <p>Experience luxury redefined in our spacious deluxe suites with premium amenities and stunning views.</p>
+              <div class="room-features">
+                <span class="room-feature"><i class="bi bi-wifi"></i> Free Wi-Fi</span>
+                <span class="room-feature"><i class="bi bi-tv"></i> 65" Smart TV</span>
+                <span class="room-feature"><i class="bi bi-people"></i> 3 Guests</span>
+              </div>
+              <a href="/rooms" class="btn btn-outline">View Details</a>
+            </div>
+          </div>
+          <div class="room-card">
+            <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80" alt="Presidential Suite" class="room-img">
+            <div class="room-details">
+              <h3>Presidential Suite</h3>
+              <div class="room-price">From $999 per night</div>
+              <p>The epitome of luxury, our presidential suites offer unparalleled elegance and exclusive amenities.</p>
+              <div class="room-features">
+                <span class="room-feature"><i class="bi bi-wifi"></i> Free Wi-Fi</span>
+                <span class="room-feature"><i class="bi bi-tv"></i> 75" Smart TV</span>
+                <span class="room-feature"><i class="bi bi-people"></i> 4 Guests</span>
+              </div>
+              <a href="/rooms" class="btn btn-outline">View Details</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+      <div class="container">
+        <div class="section-title">
+          <h2 style="color: var(--cream);">Guest Experiences</h2>
+        </div>
+        <div class="testimonial-slider animate">
+          <div class="testimonial active">
+            <div class="testimonial-rating">
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+            </div>
+            <div class="testimonial-text">
+              "Our stay at Elara Regency was nothing short of magical. The attention to detail, impeccable service, and stunning accommodations exceeded all our expectations. We can't wait to return."
+            </div>
+            <div class="testimonial-author">- James & Sarah Wilson</div>
+          </div>
+          
+          <div class="testimonial">
+            <div class="testimonial-rating">
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+            </div>
+            <div class="testimonial-text">
+              "The Presidential Suite at Elara Regency Paris was the highlight of our honeymoon. The panoramic views of the city, the luxurious amenities, and the personalized service made our stay unforgettable."
+            </div>
+            <div class="testimonial-author">- Michael & Emily Johnson</div>
+          </div>
+          
+          <div class="testimonial">
+            <div class="testimonial-rating">
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-half"></i>
+            </div>
+            <div class="testimonial-text">
+              "As a frequent business traveler, I've stayed in many luxury hotels, but Elara Regency stands out for its exceptional service and attention to detail. The staff remembered my preferences from my previous stay, making me feel truly valued."
+            </div>
+            <div class="testimonial-author">- Robert Chen, CEO</div>
+          </div>
+          
+          <div class="testimonial">
+            <div class="testimonial-rating">
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+            </div>
+            <div class="testimonial-text">
+              "The culinary experience at Elara Regency Dubai was extraordinary. Each meal was a masterpiece, showcasing the finest ingredients and impeccable presentation. The chef's tasting menu is a must-try!"
+            </div>
+            <div class="testimonial-author">- Sophia Martinez, Food Critic</div>
+          </div>
+          
+          <div class="testimonial-controls">
+            <div class="testimonial-dot active" data-index="0"></div>
+            <div class="testimonial-dot" data-index="1"></div>
+            <div class="testimonial-dot" data-index="2"></div>
+            <div class="testimonial-dot" data-index="3"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Image Gallery Section -->
+    <section class="section">
+      <div class="container">
+        <div class="section-title">
+          <h2>Experience Luxury</h2>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+          <img src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?auto=format&fit=crop&w=600&q=80" alt="Luxury Hotel" style="width: 100%; height: 200px; object-fit: cover; border-radius: 5px;">
+          <img src="https://images.unsplash.com/photo-1540518614846-7eded433c457?auto=format&fit=crop&w=600&q=80" alt="Luxury Bathroom" style="width: 100%; height: 200px; object-fit: cover; border-radius: 5px;">
+          <img src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461?auto=format&fit=crop&w=600&q=80" alt="Luxury Suite" style="width: 100%; height: 200px; object-fit: cover; border-radius: 5px;">
+          <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=600&q=80" alt="Luxury Pool" style="width: 100%; height: 200px; object-fit: cover; border-radius: 5px;">
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section" style="background-color: var(--dark-secondary);">
+      <div class="container">
+        <div class="text-center animate">
+          <h2 style="color: var(--cream);">Experience Luxury Like Never Before</h2>
+          <p style="color: var(--cream);">Book your stay today and immerse yourself in the world of Elara Regency.</p>
+          <div class="mt-4">
+            <a href="/reservation" class="btn">Make a Reservation</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-about">
+            <div class="footer-logo">Elara Regency</div>
+            <p>Setting new standards in luxury hospitality across the globe with our commitment to excellence and personalized service.</p>
+            <div class="social-links">
+              <a href="#"><i class="bi bi-facebook"></i></a>
+              <a href="#"><i class="bi bi-instagram"></i></a>
+              <a href="#"><i class="bi bi-twitter"></i></a>
+              <a href="#"><i class="bi bi-linkedin"></i></a>
+            </div>
+          </div>
+          <div class="footer-links">
+            <h3>Quick Links</h3>
+            <ul>
+              <li><a href="/">Home</a></li>
+              <li><a href="/rooms">Rooms</a></li>
+              <li><a href="/locations">Locations</a></li>
+              <li><a href="/about">About</a></li>
+              <li><a href="/contact">Contact</a></li>
+            </ul>
+          </div>
+          <div class="footer-links">
+            <h3>Contact Us</h3>
+            <ul>
+              <li><i class="bi bi-geo-alt"></i> 123 Luxury Avenue, New York</li>
+              <li><i class="bi bi-telephone"></i> +1 (555) 123-4567</li>
+              <li><i class="bi bi-envelope"></i> info@elararegency.com</li>
+            </ul>
+          </div>
+        </div>
+        <div class="copyright">
+          &copy; <%= new Date().getFullYear() %> Elara Regency. All rights reserved.
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="/js/main.js"></script>
+  <script>
+    // Hero Carousel
+    document.addEventListener('DOMContentLoaded', function() {
+      const slides = document.querySelectorAll('.hero-slide');
+      const dots = document.querySelectorAll('.carousel-dot');
+      const prevBtn = document.querySelector('.carousel-arrow.prev');
+      const nextBtn = document.querySelector('.carousel-arrow.next');
+      let currentSlide = 0;
+      let slideInterval;
+
+      function showSlide(index) {
+        slides.forEach(slide => slide.classList.remove('active'));
+        dots.forEach(dot => dot.classList.remove('active'));
+        
+        slides[index].classList.add('active');
+        dots[index].classList.add('active');
+        currentSlide = index;
+      }
+
+      function nextSlide() {
+        currentSlide = (currentSlide + 1) % slides.length;
+        showSlide(currentSlide);
+      }
+
+      function prevSlide() {
+        currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+        showSlide(currentSlide);
+      }
+
+      // Initialize carousel
+      function startCarousel() {
+        slideInterval = setInterval(nextSlide, 5000);
+      }
+
+      function stopCarousel() {
+        clearInterval(slideInterval);
+      }
+
+      // Event listeners
+      dots.forEach(dot => {
+        dot.addEventListener('click', function() {
+          const index = parseInt(this.getAttribute('data-index'));
+          showSlide(index);
+          stopCarousel();
+          startCarousel();
+        });
+      });
+
+      prevBtn.addEventListener('click', function() {
+        prevSlide();
+        stopCarousel();
+        startCarousel();
+      });
+
+      nextBtn.addEventListener('click', function() {
+        nextSlide();
+        stopCarousel();
+        startCarousel();
+      });
+
+      // Start carousel
+      startCarousel();
+
+      // Testimonial Slider
+      const testimonials = document.querySelectorAll('.testimonial');
+      const testimonialDots = document.querySelectorAll('.testimonial-dot');
+      let currentTestimonial = 0;
+      let testimonialInterval;
+
+      function showTestimonial(index) {
+        testimonials.forEach(testimonial => testimonial.classList.remove('active'));
+        testimonialDots.forEach(dot => dot.classList.remove('active'));
+        
+        testimonials[index].classList.add('active');
+        testimonialDots[index].classList.add('active');
+        currentTestimonial = index;
+      }
+
+      function nextTestimonial() {
+        currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+        showTestimonial(currentTestimonial);
+      }
+
+      // Initialize testimonial slider
+      function startTestimonialSlider() {
+        testimonialInterval = setInterval(nextTestimonial, 6000);
+      }
+
+      function stopTestimonialSlider() {
+        clearInterval(testimonialInterval);
+      }
+
+      // Event listeners
+      testimonialDots.forEach(dot => {
+        dot.addEventListener('click', function() {
+          const index = parseInt(this.getAttribute('data-index'));
+          showTestimonial(index);
+          stopTestimonialSlider();
+          startTestimonialSlider();
+        });
+      });
+
+      // Start testimonial slider
+      startTestimonialSlider();
+    });
+  </script>
+</body>
+</html>

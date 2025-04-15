@@ -1,319 +1,323 @@
-(function ($) {
-  "use strict";
-  // TOP Menu Sticky
-  $(window).on('scroll', function () {
-      var scroll = $(window).scrollTop();
-      if (scroll < 400) {
-          $("#sticky-header").removeClass("sticky");
-          $('#back-top').fadeIn(500);
-      } else {
-          $("#sticky-header").addClass("sticky");
-          $('#back-top').fadeIn(500);
-      }
-  });
+document.addEventListener("DOMContentLoaded", () => {
+  // Initialize components
+  initNavbar()
+  initAnimations()
 
-  $(document).ready(function () {
-
-      // mobile_menu
-      var menu = $('ul#navigation');
-      if (menu.length) {
-          menu.slicknav({
-              prependTo: ".mobile_menu",
-              closedSymbol: '+',
-              openedSymbol: '-'
-          });
-      };
-
-      // review-active
-      $('.slider_active').owlCarousel({
-          loop: true,
-          margin: 0,
-          items: 1,
-          autoplay: true,
-          navText: ['<i class="ti-angle-left"></i>', '<i class="ti-angle-right"></i>'],
-          nav: true,
-          dots: false,
-          autoplayHoverPause: true,
-          autoplaySpeed: 800,
-          responsive: {
-              0: {
-                  items: 1,
-                  nav: false,
-              },
-              767: {
-                  items: 1,
-                  nav: false,
-              },
-              992: {
-                  items: 1
-              }
-          }
-      });
-
-      // about_active
-      $('.about_active').owlCarousel({
-          loop: true,
-          margin: 0,
-          items: 1,
-          autoplay: true,
-          navText: ['<i class="ti-angle-left"></i>', '<i class="ti-angle-right"></i>'],
-          nav: true,
-          dots: false,
-          autoplayHoverPause: true,
-          autoplaySpeed: 800,
-          responsive: {
-              0: {
-                  items: 1,
-                  nav: false,
-              },
-              767: {
-                  items: 1,
-                  nav: false,
-              },
-              992: {
-                  items: 1
-              }
-          }
-      });
-
-      // review-active
-      $('.testmonial_active').owlCarousel({
-          loop: true,
-          margin: 0,
-          items: 1,
-          autoplay: true,
-          navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
-          nav: true,
-          dots: false,
-          autoplayHoverPause: true,
-          autoplaySpeed: 800,
-          responsive: {
-              0: {
-                  items: 1,
-                  dots: false,
-                  nav: false,
-              },
-              767: {
-                  items: 1,
-                  dots: false,
-                  nav: false,
-              },
-              992: {
-                  items: 1,
-                  nav: false
-              },
-              1200: {
-                  items: 1,
-                  nav: false
-              },
-              1500: {
-                  items: 1
-              }
-          }
-      });
-
-      // for filter
-      // init Isotope
-      var $grid = $('.grid').isotope({
-          itemSelector: '.grid-item',
-          percentPosition: true,
-          masonry: {
-              // use outer width of grid-sizer for columnWidth
-              columnWidth: 1
-          }
-      });
-
-      // filter items on button click
-      $('.portfolio-menu').on('click', 'button', function () {
-          var filterValue = $(this).attr('data-filter');
-          $grid.isotope({ filter: filterValue });
-      });
-
-      //for menu active class
-      $('.portfolio-menu button').on('click', function (event) {
-          $(this).siblings('.active').removeClass('active');
-          $(this).addClass('active');
-          event.preventDefault();
-      });
-
-      // wow js
-      new WOW().init();
-
-      // counter 
-      $('.counter').counterUp({
-          delay: 10,
-          time: 10000
-      });
-
-      /* magnificPopup img view */
-      $('.popup-image').magnificPopup({
-          type: 'image',
-          gallery: {
-              enabled: true
-          }
-      });
-
-      /* magnificPopup img view */
-      $('.img-pop-up').magnificPopup({
-          type: 'image',
-          gallery: {
-              enabled: true
-          }
-      });
-
-      /* magnificPopup video view */
-      $('.popup-video').magnificPopup({
-          type: 'iframe'
-      });
-
-      // scrollIt for smoth scroll
-      $.scrollIt({
-          upKey: 38,             // key code to navigate to the next section
-          downKey: 40,           // key code to navigate to the previous section
-          easing: 'linear',      // the easing function for animation
-          scrollTime: 600,       // how long (in ms) the animation takes
-          activeClass: 'active', // class given to the active nav element
-          onPageChange: null,    // function(pageIndex) that is called when page is changed
-          topOffset: 0           // offste (in px) for fixed top navigation
-      });
-
-      // scrollup bottom to top
-      $.scrollUp({
-          scrollName: 'scrollUp', // Element ID
-          topDistance: '4500', // Distance from top before showing element (px)
-          topSpeed: 300, // Speed back to top (ms)
-          animation: 'fade', // Fade, slide, none
-          animationInSpeed: 200, // Animation in speed (ms)
-          animationOutSpeed: 200, // Animation out speed (ms)
-          scrollText: '<i class="fa fa-angle-double-up"></i>', // Text for element
-          activeOverlay: false, // Set CSS color to display scrollUp active point, e.g '#00FFFF'
-      });
-
-      // brand-active
-      $('.brand-active').owlCarousel({
-          loop: true,
-          margin: 30,
-          items: 1,
-          autoplay: true,
-          nav: false,
-          dots: false,
-          autoplayHoverPause: true,
-          autoplaySpeed: 800,
-          responsive: {
-              0: {
-                  items: 1,
-                  nav: false
-              },
-              767: {
-                  items: 4
-              },
-              992: {
-                  items: 7
-              }
-          }
-      });
-
-      // project-active
-      $('.project-active').owlCarousel({
-          loop: true,
-          margin: 30,
-          items: 1,
-          navText: ['<i class="Flaticon flaticon-left-arrow"></i>', '<i class="Flaticon flaticon-right-arrow"></i>'],
-          nav: true,
-          dots: false,
-          responsive: {
-              0: {
-                  items: 1,
-                  nav: false
-              },
-              767: {
-                  items: 1,
-                  nav: false
-              },
-              992: {
-                  items: 2,
-                  nav: false
-              },
-              1200: {
-                  items: 1,
-              },
-              1501: {
-                  items: 2,
-              }
-          }
-      });
-
-      if (document.getElementById('default-select')) {
-          $('select').niceSelect();
-      }
-
-      // about-pro-active
-      $('.details_active').owlCarousel({
-          loop: true,
-          margin: 0,
-          items: 1,
-          navText: ['<i class="ti-angle-left"></i>', '<i class="ti-angle-right"></i>'],
-          nav: true,
-          dots: false,
-          responsive: {
-              0: {
-                  items: 1,
-                  nav: false
-              },
-              767: {
-                  items: 1,
-                  nav: false
-              },
-              992: {
-                  items: 1,
-                  nav: false
-              },
-              1200: {
-                  items: 1,
-              }
-          }
-      });
-  });
-
-  // resitration_Form
-  $(document).ready(function () {
-      $('.popup-with-form').magnificPopup({
-          type: 'inline',
-          preloader: false,
-          focus: '#name',
-
-          // When element is focused, some mobile browsers in some cases zoom in
-          callbacks: {
-              beforeOpen: function () {
-                  if ($(window).width() < 700) {
-                      this.st.focus = false;
-                  } else {
-                      this.st.focus = '#name';
-                  }
-              }
-          }
-      });
-  });
-
-  //------- Mailchimp js --------//  
-  function mailChimp() {
-      $('#mc_embed_signup').find('form').ajaxChimp();
+  // Page specific initializations
+  if (document.querySelector(".home-page")) {
+    initHeroSlider()
   }
-  mailChimp();
 
-  // Search Toggle
-  $("#search_input_box").hide();
-  $("#search").on("click", function () {
-      $("#search_input_box").slideToggle();
-      $("#search_input").focus();
-  });
-  $("#close_search").on("click", function () {
-      $('#search_input_box').slideUp(500);
-  });
-  // Search Toggle
-  $("#search_input_box").hide();
-  $("#search_1").on("click", function () {
-      $("#search_input_box").slideToggle();
-      $("#search_input").focus();
-  });
-})(jQuery);
+  if (document.querySelector(".rooms-page")) {
+    initRoomGallery()
+  }
+
+  if (document.querySelector(".locations-page")) {
+    initMap()
+  }
+
+  if (document.querySelector(".auth-form")) {
+    initFormValidation()
+  }
+
+  if (document.querySelector(".reservation-form")) {
+    initDatepickers()
+  }
+})
+
+// Navbar functionality
+function initNavbar() {
+  const hamburger = document.querySelector(".hamburger")
+  const navLinks = document.querySelector(".nav-links")
+  const header = document.querySelector(".header")
+
+  if (hamburger && navLinks) {
+    hamburger.addEventListener("click", () => {
+      hamburger.classList.toggle("active")
+      navLinks.classList.toggle("active")
+    })
+  }
+
+  // Navbar scroll effect
+  if (header) {
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 50) {
+        header.classList.add("scrolled")
+      } else {
+        header.classList.remove("scrolled")
+      }
+    })
+  }
+}
+
+// Scroll animations
+function initAnimations() {
+  const elements = document.querySelectorAll(".animate")
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("animated")
+        }
+      })
+    },
+    { threshold: 0.1 },
+  )
+
+  elements.forEach((element) => {
+    observer.observe(element)
+  })
+}
+
+// Hero slider for homepage
+function initHeroSlider() {
+  let currentSlide = 0
+  const slides = document.querySelectorAll(".hero-slide")
+
+  if (slides.length <= 1) return
+
+  function showSlide(index) {
+    slides.forEach((slide, i) => {
+      slide.style.opacity = i === index ? "1" : "0"
+    })
+  }
+
+  function nextSlide() {
+    currentSlide = (currentSlide + 1) % slides.length
+    showSlide(currentSlide)
+  }
+
+  // Initialize first slide
+  showSlide(currentSlide)
+
+  // Auto-advance slides
+  setInterval(nextSlide, 5000)
+}
+
+// Room gallery functionality
+function initRoomGallery() {
+  const roomCards = document.querySelectorAll(".room-card")
+
+  roomCards.forEach((card) => {
+    const galleryThumbs = card.querySelectorAll(".gallery-thumb")
+    const mainImage = card.querySelector(".room-img")
+
+    galleryThumbs.forEach((thumb) => {
+      thumb.addEventListener("click", () => {
+        // Update main image
+        mainImage.src = thumb.getAttribute("data-src")
+
+        // Update active thumbnail
+        galleryThumbs.forEach((t) => t.classList.remove("active"))
+        thumb.classList.add("active")
+      })
+    })
+  })
+}
+
+// Google Maps for locations page
+function initMap() {
+  // This would normally use the Google Maps API
+  // For this example, we'll just create a placeholder
+  const mapContainer = document.querySelector(".map-container")
+
+  if (mapContainer) {
+    mapContainer.innerHTML = `
+      <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background-color: #1e1e1e; color: #d4af37; text-align: center;">
+        <div>
+          <h3>Interactive Map</h3>
+          <p>Google Maps would be displayed here in a real implementation</p>
+        </div>
+      </div>
+    `
+  }
+}
+
+// Form validation
+function initFormValidation() {
+  const forms = document.querySelectorAll(".needs-validation")
+
+  forms.forEach((form) => {
+    form.addEventListener("submit", (event) => {
+      if (!form.checkValidity()) {
+        event.preventDefault()
+        event.stopPropagation()
+      }
+
+      form.classList.add("was-validated")
+    })
+  })
+
+  // Login form submission
+  const loginForm = document.getElementById("loginForm")
+  if (loginForm) {
+    loginForm.addEventListener("submit", (event) => {
+      event.preventDefault()
+
+      const email = document.getElementById("email").value
+      const password = document.getElementById("password").value
+
+      fetch("/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.success) {
+            // Redirect based on user role
+            if (data.isAdmin) {
+              window.location.href = "/admin-dashboard"
+            } else {
+              window.location.href = "/"
+            }
+          } else {
+            showAlert("error", data.message)
+          }
+        })
+        .catch((error) => {
+          console.error("Error:", error)
+          showAlert("error", "An error occurred. Please try again.")
+        })
+    })
+  }
+
+  // Registration form submission
+  const registerForm = document.getElementById("registerForm")
+  if (registerForm) {
+    registerForm.addEventListener("submit", (event) => {
+      event.preventDefault()
+
+      const name = document.getElementById("name").value
+      const email = document.getElementById("email").value
+      const password = document.getElementById("password").value
+
+      fetch("/api/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name, email, password }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.success) {
+            window.location.href = "/"
+          } else {
+            showAlert("error", data.message)
+          }
+        })
+        .catch((error) => {
+          console.error("Error:", error)
+          showAlert("error", "An error occurred. Please try again.")
+        })
+    })
+  }
+}
+
+// Datepickers for reservation form
+function initDatepickers() {
+  // This would normally use a datepicker library
+  // For this example, we'll just use HTML5 date inputs
+  const dateInputs = document.querySelectorAll('input[type="date"]')
+
+  // Set min date to today
+  const today = new Date().toISOString().split("T")[0]
+  dateInputs.forEach((input) => {
+    input.min = today
+  })
+
+  // Reservation form submission
+  const reservationForm = document.getElementById("reservationForm")
+  if (reservationForm) {
+    reservationForm.addEventListener("submit", (event) => {
+      event.preventDefault()
+
+      const checkIn = document.getElementById("checkIn").value
+      const checkOut = document.getElementById("checkOut").value
+      const roomType = document.getElementById("roomType").value
+      const guests = document.getElementById("guests").value
+      const specialRequests = document.getElementById("specialRequests").value
+
+      fetch("/api/reservation", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          checkIn,
+          checkOut,
+          roomType,
+          guests,
+          specialRequests,
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.success) {
+            showAlert("success", "Reservation submitted successfully!")
+            reservationForm.reset()
+          } else {
+            showAlert("error", data.message)
+          }
+        })
+        .catch((error) => {
+          console.error("Error:", error)
+          showAlert("error", "An error occurred. Please try again.")
+        })
+    })
+  }
+}
+
+// Contact form submission
+function initContactForm() {
+  const contactForm = document.getElementById("contactForm")
+  if (contactForm) {
+    contactForm.addEventListener("submit", (event) => {
+      event.preventDefault()
+
+      const name = document.getElementById("name").value
+      const email = document.getElementById("email").value
+      const subject = document.getElementById("subject").value
+      const message = document.getElementById("message").value
+
+      fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name, email, subject, message }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.success) {
+            showAlert("success", "Message sent successfully!")
+            contactForm.reset()
+          } else {
+            showAlert("error", data.message)
+          }
+        })
+        .catch((error) => {
+          console.error("Error:", error)
+          showAlert("error", "An error occurred. Please try again.")
+        })
+    })
+  }
+}
+
+// Alert helper function
+function showAlert(type, message) {
+  const alertContainer = document.createElement("div")
+  alertContainer.className = `alert alert-${type}`
+  alertContainer.innerHTML = message
+
+  document.body.appendChild(alertContainer)
+
+  // Auto remove after 3 seconds
+  setTimeout(() => {
+    alertContainer.remove()
+  }, 3000)
+}
