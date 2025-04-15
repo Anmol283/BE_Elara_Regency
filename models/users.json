@@ -1,0 +1,18 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Admin User",
+      "email": "admin@elararegency.com",
+      "password": "admin123",
+      "isAdmin": true
+    },
+    {
+      "id": 4,
+      "name": "Arshdeep Singh",
+      "email": "arshth134@gmail.com",
+      "password": "123456",
+      "isAdmin": false
+    }
+  ]
+}
