@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Lora:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/admin-dashboard.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="dashboard">
+    <!-- Header -->
+    <header class="header">
+      <div class="container">
+        <nav class="navbar">
+          <a href="/" class="logo">Elara Regency</a>
+          <ul class="nav-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/rooms">Rooms</a></li>
+            <li><a href="/locations">Locations</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/blog">Blog</a></li>
+            <li><a href="/contact">Contact</a></li>
+            <li><a href="/admin-dashboard" class="gold-text">Dashboard</a></li>
+            <li><a href="/logout">Logout</a></li>
+          </ul>
+          <div class="hamburger">
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Dashboard Content -->
+    <div class="admin-layout">
+      <!-- Sidebar -->
+      <aside class="admin-sidebar">
+        <nav class="admin-nav">
+          <ul>
+            <li class="active">
+              <a href="#overview" data-section="overview">
+                <i class="bi bi-speedometer2"></i> Overview
+              </a>
+            </li>
+            <li>
+              <a href="#bookings" data-section="bookings">
+                <i class="bi bi-calendar-check"></i> Bookings
+              </a>
+            </li>
+            <li>
+              <a href="#users" data-section="users">
+                <i class="bi bi-people"></i> Users
+              </a>
+            </li>
+            <li>
+              <a href="#rooms" data-section="rooms">
+                <i class="bi bi-door-open"></i> Rooms
+              </a>
+            </li>
+            <li>
+              <a href="#reports" data-section="reports">
+                <i class="bi bi-bar-chart"></i> Reports
+              </a>
+            </li>
+            <li>
+              <a href="#settings" data-section="settings">
+                <i class="bi bi-gear"></i> Settings
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="admin-main">
+        <!-- Overview Section -->
+        <section id="overview" class="admin-section active">
+          <div class="admin-header">
+            <h1>Dashboard Overview</h1>
+            <p>Welcome back, Admin. Here's what's happening at Elara Regency today.</p>
+          </div>
+
+          <!-- Stats Overview -->
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-icon">
+                <i class="bi bi-people-fill"></i>
+              </div>
+              <div class="stat-content">
+                <div class="stat-value"><%= users.length %></div>
+                <div class="stat-label">Registered Users</div>
+              </div>
+              <div class="stat-change positive">
+                <i class="bi bi-arrow-up"></i> 12%
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon">
+                <i class="bi bi-calendar-check-fill"></i>
+              </div>
+              <div class="stat-content">
+                <div class="stat-value">24</div>
+                <div class="stat-label">Active Bookings</div>
+              </div>
+              <div class="stat-change positive">
+                <i class="bi bi-arrow-up"></i> 8%
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon">
+                <i class="bi bi-percent"></i>
+              </div>
+              <div class="stat-content">
+                <div class="stat-value">85%</div>
+                <div class="stat-label">Occupancy Rate</div>
+              </div>
+              <div class="stat-change positive">
+                <i class="bi bi-arrow-up"></i> 5%
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon">
+                <i class="bi bi-currency-dollar"></i>
+              </div>
+              <div class="stat-content">
+                <div class="stat-value">$12,450</div>
+                <div class="stat-label">Revenue (Today)</div>
+              </div>
+              <div class="stat-change negative">
+                <i class="bi bi-arrow-down"></i> 3%
+              </div>
+            </div>
+          </div>
+
+          <!-- Charts -->
+          <div class="charts-container">
+            <div class="chart-card">
+              <div class="chart-header">
+                <h3>Revenue Overview</h3>
+                <div class="chart-actions">
+                  <select id="revenue-timeframe">
+                    <option value="weekly">Weekly</option>
+                    <option value="monthly" selected>Monthly</option>
+                    <option value="yearly">Yearly</option>
+                  </select>
+                </div>
+              </div>
+              <div class="chart-body">
+                <canvas id="revenueChart"></canvas>
+              </div>
+            </div>
+            <div class="chart-card">
+              <div class="chart-header">
+                <h3>Occupancy by Room Type</h3>
+                <div class="chart-actions">
+                  <select id="occupancy-location">
+                    <option value="all" selected>All Locations</option>
+                    <option value="new-york">New York</option>
+                    <option value="paris">Paris</option>
+                    <option value="dubai">Dubai</option>
+                  </select>
+                </div>
+              </div>
+              <div class="chart-body">
+                <canvas id="occupancyChart"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recent Activity -->
+          <div class="recent-activity">
+            <div class="section-header">
+              <h3>Recent Activity</h3>
+              <a href="#" class="view-all">View All</a>
+            </div>
+            <div class="activity-list">
+              <div class="activity-item">
+                <div class="activity-icon booking">
+                  <i class="bi bi-calendar-plus"></i>
+                </div>
+                <div class="activity-content">
+                  <div class="activity-title">New Booking</div>
+                  <div class="activity-details">John Smith booked a Deluxe Suite for Apr 20-25</div>
+                  <div class="activity-time">10 minutes ago</div>
+                </div>
+              </div>
+              <div class="activity-item">
+                <div class="activity-icon user">
+                  <i class="bi bi-person-plus"></i>
+                </div>
+                <div class="activity-content">
+                  <div class="activity-title">New User Registration</div>
+                  <div class="activity-details">Emily Johnson created a new account</div>
+                  <div class="activity-time">45 minutes ago</div>
+                </div>
+              </div>
+              <div class="activity-item">
+                <div class="activity-icon payment">
+                  <i class="bi bi-credit-card"></i>
+                </div>
+                <div class="activity-content">
+                  <div class="activity-title">Payment Received</div>
+                  <div class="activity-details">$1,250 payment for booking #1005</div>
+                  <div class="activity-time">2 hours ago</div>
+                </div>
+              </div>
+              <div class="activity-item">
+                <div class="activity-icon alert">
+                  <i class="bi bi-exclamation-triangle"></i>
+                </div>
+                <div class="activity-content">
+                  <div class="activity-title">Low Inventory Alert</div>
+                  <div class="activity-details">Standard Rooms in New York location are almost fully booked for next weekend</div>
+                  <div class="activity-time">3 hours ago</div>
+                </div>
+              </div>
+              <div class="activity-item">
+                <div class="activity-icon review">
+                  <i class="bi bi-star"></i>
+                </div>
+                <div class="activity-content">
+                  <div class="activity-title">New Review</div>
+                  <div class="activity-details">Michael Brown left a 5-star review</div>
+                  <div class="activity-time">5 hours ago</div>
+                </div>
+              </div>
+            </div>
+          
+          </div>
+        </section>
+
+        <!-- Bookings Section -->
+        <section id="bookings" class="admin-section">
+          <div class="admin-header">
+            <h1>Booking Management</h1>
+            <p>View and manage all reservations across all Elara Regency properties.</p>
+          </div>
+
+          <!-- Booking Filters -->
+          <div class="filters-container">
+            <div class="filter-group">
+              <label for="booking-status">Status</label>
+              <select id="booking-status">
+                <option value="all">All Statuses</option>
+                <option value="confirmed">Confirmed</option>
+                <option value="pending">Pending</option>
+                <option value="cancelled">Cancelled</option>
+                <option value="completed">Completed</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label for="booking-location">Location</label>
+              <select id="booking-location">
+                <option value="all">All Locations</option>
+                <option value="new-york">New York</option>
+                <option value="paris">Paris</option>
+                <option value="dubai">Dubai</option>
+                <option value="tokyo">Tokyo</option>
+                <option value="sydney">Sydney</option>
+                <option value="maldives">Maldives</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label for="booking-date-range">Date Range</label>
+              <select id="booking-date-range">
+                <option value="all">All Dates</option>
+                <option value="today">Today</option>
+                <option value="tomorrow">Tomorrow</option>
+                <option value="this-week">This Week</option>
+                <option value="next-week">Next Week</option>
+                <option value="this-month">This Month</option>
+                <option value="custom">Custom Range</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label for="booking-search">Search</label>
+              <div class="search-input">
+                <input type="text" id="booking-search" placeholder="Search by name, email, or booking ID">
+                <button type="button"><i class="bi bi-search"></i></button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Booking Table -->
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>ID <i class="bi bi-arrow-down-up"></i></th>
+                  <th>Guest <i class="bi bi-arrow-down-up"></i></th>
+                  <th>Room <i class="bi bi-arrow-down-up"></i></th>
+                  <th>Location <i class="bi bi-arrow-down-up"></i></th>
+                  <th>Check-in <i class="bi bi-arrow-down-up"></i></th>
+                  <th>Check-out <i class="bi bi-arrow-down-up"></i></th>
+                  <th>Total <i class="bi bi-arrow-down-up"></i></th>
+                  <th>Status <i class="bi bi-arrow-down-up"></i></th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>#1001</td>
+                  <td>
+                    <div class="guest-info">
+                      <div class="guest-name">John Smith</div>
+                      <div class="guest-email">john@example.com</div>
+                    </div>
+                  </td>
+                  <td>Deluxe Suite</td>
+                  <td>New York</td>
+                  <td>Apr 10, 2023</td>
+                  <td>Apr 15, 2023</td>
+                  <td>$2,495</td>
+                  <td><span class="status confirmed">Confirmed</span></td>
+                  <td>
+                    <div class="action-buttons">
+                      <button class="action-btn view" title="View Details"><i class="bi bi-eye"></i></button>
+                      <button class="action-btn edit" title="Edit Booking"><i class="bi bi-pencil"></i></button>
+                      <button class="action-btn delete" title="Cancel Booking"><i class="bi bi-trash"></i></button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>#1002</td>
+                  <td>
+                    <div class="guest-info">
+                      <div class="guest-name">Emily Johnson</div>
+                      <div class="guest-email">emily@example.com</div>
+                    </div>
+                  </td>
+                  <td>Presidential Suite</td>
+                  <td>Paris</td>
+                  <td>Apr 12, 2023</td>
+                  <td>Apr 18, 2023</td>
+                  <td>$5,994</td>
+                  <td><span class="status confirmed">Confirmed</span></td>
+                  <td>
+                    <div class="action-buttons">
+                      <button class="action-btn view" title="View Details"><i class="bi bi-eye"></i></button>
+                      <button class="action-btn edit" title="Edit Booking"><i class="bi bi-pencil"></i></button>
+                      <button class="action-btn delete" title="Cancel Booking"><i class="bi bi-trash"></i></button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>#1003</td>
+                  <td>
+                    <div class="guest-info">
+                      <div class="guest-name">Michael Brown</div>
+                      <div class="guest-email">michael@example.com</div>
+                    </div>
+                  </td>
+                  <td>Standard Room</td>
+                  <td>New York</td>
+                  <td>Apr 15, 2023</td>
+                  <td>Apr 17, 2023</td>
+                  <td>$598</td>
+                  <td><span class="status pending">Pending</span></td>
+                  <td>
+                    <div class="action-buttons">
+                      <button class="action-btn view" title="View Details"><i class="bi bi-eye"></i></button>
+                      <button class="action-btn edit" title="Edit Booking"><i class="bi bi-pencil"></i></button>
+                      <button class="action-btn delete" title="Cancel Booking"><i class="bi bi-trash"></i></button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>#1004</td>
+                  <td>
+                    <div class="guest-info">
+                      <div class="guest-name">Sarah Wilson</div>
+                      <div class="guest-email">sarah@example.com</div>
+                    </div>
+                  </td>
+                  <td>Deluxe Suite</td>
+                  <td>Dubai</td>
+                  <td>Apr 18, 2023</td>
+                  <td>Apr 22, 2023</td>
+                  <td>$1,996</td>
+                  <td><span class="status confirmed">Confirmed</span></td>
+                  <td>
+                    <div class="action-buttons">
+                      <button class="action-btn view" title="View Details"><i class="bi bi-eye"></i></button>
+                      <button class="action-btn edit" title="Edit Booking"><i class="bi bi-pencil"></i></button>
+                      <button class="action-btn delete" title="Cancel Booking"><i class="bi bi-trash"></i></button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>#1005</td>
+                  <td>
+                    <div class="guest-info">
+                      <div class="guest-name">David Lee</div>
+                      <div class="guest-email">david@example.com</div>
+                    </div>
+                  </td>
+                  <td>Presidential Suite</td>
+                  <td>Tokyo</td>
+                  <td>Apr 20, 2023</td>
+                  <td>Apr 25, 2023</td>
+                  <td>$4,995</td>
+                  <td><span class="status cancelled">Cancelled</span></td>
+                  <td>
+                    <div class="action-buttons">
+                      <button class="action-btn view" title="View Details"><i class="bi bi-eye"></i></button>
+                      <button class="action-btn edit" title="Edit Booking"><i class="bi bi-pencil"></i></button>
+                      <button class="action-btn delete" title="Cancel Booking"><i class="bi bi-trash"></i></button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Pagination -->
+          <div class="pagination">
+            <button class="pagination-btn" disabled><i class="bi bi-chevron-left"></i></button>
+            <button class="pagination-btn active">1</button>
+            <button class="pagination-btn">2</button>
+            <button class="pagination-btn">3</button>
+            <span class="pagination-ellipsis">...</span>
+            <button class="pagination-btn">10</button>
+            <button class="pagination-btn"><i class="bi bi-chevron-right"></i></button>
+          </div>
+        </section>
+
+        <!-- Users Section -->
+        <section id="users" class="admin-section">
+          <div class="admin-header">
+            <h1>User Management</h1>
+            <p>View and manage user accounts for Elara Regency.</p>
+          </div>
+
+          <!-- User Filters -->
+          <div class="filters-container">
+            <div class="filter-group">
+              <label for="user-role">Role</label>
+              <select id="user-role">
+                <option value="all">All Roles</option>
+                <option value="admin">Admin</option>
+                <option value="user">User</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label for="user-status">Status</label>
+              <select id="user-status">
+                <option value="all">All Statuses</option>
+                <option value="active">Active</option>
+                <option value="inactive">Inactive</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label for="user-search">Search</label>
+              <div class="search-input">
+                <input type="text" id="user-search" placeholder="Search by name or email">
+                <button type="button"><i class="bi bi-search"></i></button>
+              </div>
+            </div>
+            <div class="filter-actions">
+              <button class="btn btn-primary"><i class="bi bi-plus"></i> Add New User</button>
+            </div>
+          </div>
+
+          <!-- Users Table -->
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>ID <i class="bi bi-arrow-down-up"></i></th>
+                  <th>Name <i class="bi bi-arrow-down-up"></i></th>
+                  <th>Email <i class="bi bi-arrow-down-up"></i></th>
+                  <th>Role <i class="bi bi-arrow-down-up"></i></th>
+                  <th>Status <i class="bi bi-arrow-down-up"></i></th>
+                  <th>Registered <i class="bi bi-arrow-down-up"></i></th>
+                  <th>Last Login <i class="bi bi-arrow-down-up"></i></th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% users.forEach(user => { %>
+                  <tr>
+                    <td>#<%= user.id %></td>
+                    <td><%= user.name %></td>
+                    <td><%= user.email %></td>
+                    <td><span class="role <%= user.isAdmin ? 'admin' : 'user' %>"><%= user.isAdmin ? 'Admin' : 'User' %></span></td>
+                    <td><span class="status active">Active</span></td>
+                    <td>Mar 15, 2023</td>
+                    <td>Apr 10, 2023</td>
+                    <td>
+                      <div class="action-buttons">
+                        <button class="action-btn view" title="View Details"><i class="bi bi-eye"></i></button>
+                        <button class="action-btn edit" title="Edit User"><i class="bi bi-pencil"></i></button>
+                        <button class="action-btn delete" title="Delete User"><i class="bi bi-trash"></i></button>
+                      </div>
+                    </td>
+                  </tr>
+                <% }); %>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Pagination -->
+          <div class="pagination">
+            <button class="pagination-btn" disabled><i class="bi bi-chevron-left"></i></button>
+            <button class="pagination-btn active">1</button>
+            <button class="pagination-btn">2</button>
+            <button class="pagination-btn"><i class="bi bi-chevron-right"></i></button>
+          </div>
+        </section>
+
+        <!-- Rooms Section -->
+        <section id="rooms" class="admin-section">
+          <div class="admin-header">
+            <h1>Room Management</h1>
+            <p>Manage room inventory, pricing, and availability across all properties.</p>
+          </div>
+
+          <!-- Room Filters -->
+          <div class="filters-container">
+            <div class="filter-group">
+              <label for="room-type">Room Type</label>
+              <select id="room-type">
+                <option value="all">All Types</option>
+                <option value="standard">Standard Room</option>
+                <option value="deluxe">Deluxe Suite</option>
+                <option value="presidential">Presidential Suite</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label for="room-location">Location</label>
+              <select id="room-location">
+                <option value="all">All Locations</option>
+                <option value="new-york">New York</option>
+                <option value="paris">Paris</option>
+                <option value="dubai">Dubai</option>
+                <option value="tokyo">Tokyo</option>
+                <option value="sydney">Sydney</option>
+                <option value="maldives">Maldives</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label for="room-status">Status</label>
+              <select id="room-status">
+                <option value="all">All Statuses</option>
+                <option value="available">Available</option>
+                <option value="occupied">Occupied</option>
+                <option value="maintenance">Maintenance</option>
+              </select>
+            </div>
+            <div class="filter-actions">
+              <button class="btn btn-primary"><i class="bi bi-plus"></i> Add New Room</button>
+            </div>
+          </div>
+
+          <!-- Rooms Table -->
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Room # <i class="bi bi-arrow-down-up"></i></th>
+                  <th>Type <i class="bi bi-arrow-down-up"></i></th>
+                  <th>Location <i class="bi bi-arrow-down-up"></i></th>
+                  <th>Capacity <i class="bi bi-arrow-down-up"></i></th>
+                  <th>Price <i class="bi bi-arrow-down-up"></i></th>
+                  <th>Status <i class="bi bi-arrow-down-up"></i></th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>101</td>
+                  <td>Standard Room</td>
+                  <td>New York</td>
+                  <td>2 Guests</td>
+                  <td>$299/night</td>
+                  <td><span class="status available">Available</span></td>
+                  <td>
+                    <div class="action-buttons">
+                      <button class="action-btn view" title="View Details"><i class="bi bi-eye"></i></button>
+                      <button class="action-btn edit" title="Edit Room"><i class="bi bi-pencil"></i></button>
+                      <button class="action-btn maintenance" title="Set Maintenance"><i class="bi bi-tools"></i></button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>102</td>
+                  <td>Standard Room</td>
+                  <td>New York</td>
+                  <td>2 Guests</td>
+                  <td>$299/night</td>
+                  <td><span class="status occupied">Occupied</span></td>
+                  <td>
+                    <div class="action-buttons">
+                      <button class="action-btn view" title="View Details"><i class="bi bi-eye"></i></button>
+                      <button class="action-btn edit" title="Edit Room"><i class="bi bi-pencil"></i></button>
+                      <button class="action-btn maintenance" title="Set Maintenance"><i class="bi bi-tools"></i></button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>201</td>
+                  <td>Deluxe Suite</td>
+                  <td>New York</td>
+                  <td>3 Guests</td>
+                  <td>$499/night</td>
+                  <td><span class="status available">Available</span></td>
+                  <td>
+                    <div class="action-buttons">
+                      <button class="action-btn view" title="View Details"><i class="bi bi-eye"></i></button>
+                      <button class="action-btn edit" title="Edit Room"><i class="bi bi-pencil"></i></button>
+                      <button class="action-btn maintenance" title="Set Maintenance"><i class="bi bi-tools"></i></button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>301</td>
+                  <td>Presidential Suite</td>
+                  <td>New York</td>
+                  <td>4 Guests</td>
+                  <td>$999/night</td>
+                  <td><span class="status maintenance">Maintenance</span></td>
+                  <td>
+                    <div class="action-buttons">
+                      <button class="action-btn view" title="View Details"><i class="bi bi-eye"></i></button>
+                      <button class="action-btn edit" title="Edit Room"><i class="bi bi-pencil"></i></button>
+                      <button class="action-btn maintenance" title="Set Maintenance"><i class="bi bi-tools"></i></button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>101</td>
+                  <td>Standard Room</td>
+                  <td>Paris</td>
+                  <td>2 Guests</td>
+                  <td>$349/night</td>
+                  <td><span class="status available">Available</span></td>
+                  <td>
+                    <div class="action-buttons">
+                      <button class="action-btn view" title="View Details"><i class="bi bi-eye"></i></button>
+                      <button class="action-btn edit" title="Edit Room"><i class="bi bi-pencil"></i></button>
+                      <button class="action-btn maintenance" title="Set Maintenance"><i class="bi bi-tools"></i></button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Pagination -->
+          <div class="pagination">
+            <button class="pagination-btn" disabled><i class="bi bi-chevron-left"></i></button>
+            <button class="pagination-btn active">1</button>
+            <button class="pagination-btn">2</button>
+            <button class="pagination-btn">3</button>
+            <button class="pagination-btn"><i class="bi bi-chevron-right"></i></button>
+          </div>
+        </section>
+
+        <!-- Reports Section -->
+        <section id="reports" class="admin-section">
+          <div class="admin-header">
+            <h1>Reports & Analytics</h1>
+            <p>View detailed reports and analytics for your properties.</p>
+          </div>
+
+          <!-- Report Filters -->
+          <div class="filters-container">
+            <div class="filter-group">
+              <label for="report-type">Report Type</label>
+              <select id="report-type">
+                <option value="revenue">Revenue</option>
+                <option value="occupancy">Occupancy</option>
+                <option value="guest">Guest Demographics</option>
+                <option value="performance">Performance</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label for="report-location">Location</label>
+              <select id="report-location">
+                <option value="all">All Locations</option>
+                <option value="new-york">New York</option>
+                <option value="paris">Paris</option>
+                <option value="dubai">Dubai</option>
+                <option value="tokyo">Tokyo</option>
+                <option value="sydney">Sydney</option>
+                <option value="maldives">Maldives</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label for="report-period">Time Period</label>
+              <select id="report-period">
+                <option value="this-month">This Month</option>
+                <option value="last-month">Last Month</option>
+                <option value="this-quarter">This Quarter</option>
+                <option value="last-quarter">Last Quarter</option>
+                <option value="this-year">This Year</option>
+                <option value="last-year">Last Year</option>
+                <option value="custom">Custom Range</option>
+              </select>
+            </div>
+            <div class="filter-actions">
+              <button class="btn btn-primary"><i class="bi bi-download"></i> Export Report</button>
+            </div>
+          </div>
+
+          <!-- Report Charts -->
+          <div class="charts-container">
+            <div class="chart-card full-width">
+              <div class="chart-header">
+                <h3>Revenue by Location</h3>
+              </div>
+              <div class="chart-body">
+                <canvas id="revenueByLocationChart"></canvas>
+              </div>
+            </div>
+            <div class="chart-card">
+              <div class="chart-header">
+                <h3>Room Type Distribution</h3>
+              </div>
+              <div class="chart-body">
+                <canvas id="roomTypeChart"></canvas>
+              </div>
+            </div>
+            <div class="chart-card">
+              <div class="chart-header">
+                <h3>Booking Source</h3>
+              </div>
+              <div class="chart-body">
+                <canvas id="bookingSourceChart"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <!-- Key Metrics -->
+          <div class="metrics-container">
+            <div class="section-header">
+              <h3>Key Performance Metrics</h3>
+            </div>
+            <div class="metrics-grid">
+              <div class="metric-card">
+                <div class="metric-title">Average Daily Rate (ADR)</div>
+                <div class="metric-value">$425</div>
+                <div class="metric-change positive">+5.2% vs. last period</div>
+              </div>
+              <div class="metric-card">
+                <div class="metric-title">RevPAR</div>
+                <div class="metric-value">$361</div>
+                <div class="metric-change positive">+3.8% vs. last period</div>
+              </div>
+              <div class="metric-card">
+                <div class="metric-title">Average Length of Stay</div>
+                <div class="metric-value">3.2 days</div>
+                <div class="metric-change negative">-0.3 days vs. last period</div>
+              </div>
+              <div class="metric-card">
+                <div class="metric-title">Cancellation Rate</div>
+                <div class="metric-value">4.7%</div>
+                <div class="metric-change positive">-0.5% vs. last period</div>
+              </div>
+              <div class="metric-card">
+                <div class="metric-title">Direct Booking %</div>
+                <div class="metric-value">62%</div>
+                <div class="metric-change positive">+3% vs. last period</div>
+              </div>
+              <div class="metric-card">
+                <div class="metric-title">Repeat Guest %</div>
+                <div class="metric-value">28%</div>
+                <div class="metric-change positive">+2% vs. last period</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Settings Section -->
+        <section id="settings" class="admin-section">
+          <div class="admin-header">
+            <h1>System Settings</h1>
+            <p>Configure system settings and preferences.</p>
+          </div>
+
+          <div class="settings-container">
+            <!-- General Settings -->
+            <div class="settings-card">
+              <div class="settings-header">
+                <h3>General Settings</h3>
+              </div>
+              <div class="settings-body">
+                <form class="settings-form">
+                  <div class="form-group">
+                    <label for="site-name">Hotel Name</label>
+                    <input type="text" id="site-name" value="Elara Regency" class="form-control">
+                  </div>
+                  <div class="form-group">
+                    <label for="contact-email">Contact Email</label>
+                    <input type="email" id="contact-email" value="info@elararegency.com" class="form-control">
+                  </div>
+                  <div class="form-group">
+                    <label for="contact-phone">Contact Phone</label>
+                    <input type="tel" id="contact-phone" value="+1 (555) 123-4567" class="form-control">
+                  </div>
+                  <div class="form-group">
+                    <label for="currency">Default Currency</label>
+                    <select id="currency" class="form-control">
+                      <option value="USD" selected>USD ($)</option>
+                      <option value="EUR">EUR (€)</option>
+                      <option value="GBP">GBP (£)</option>
+                      <option value="JPY">JPY (¥)</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="timezone">Default Timezone</label>
+                    <select id="timezone" class="form-control">
+                      <option value="America/New_York" selected>Eastern Time (ET)</option>
+                      <option value="America/Chicago">Central Time (CT)</option>
+                      <option value="America/Denver">Mountain Time (MT)</option>
+                      <option value="America/Los_Angeles">Pacific Time (PT)</option>
+                      <option value="Europe/London">Greenwich Mean Time (GMT)</option>
+                      <option value="Europe/Paris">Central European Time (CET)</option>
+                      <option value="Asia/Tokyo">Japan Standard Time (JST)</option>
+                    </select>
+                  </div>
+                  <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <!-- Booking Settings -->
+            <div class="settings-card">
+              <div class="settings-header">
+                <h3>Booking Settings</h3>
+              </div>
+              <div class="settings-body">
+                <form class="settings-form">
+                  <div class="form-group">
+                    <label for="check-in-time">Default Check-in Time</label>
+                    <input type="time" id="check-in-time" value="15:00" class="form-control">
+                  </div>
+                  <div class="form-group">
+                    <label for="check-out-time">Default Check-out Time</label>
+                    <input type="time" id="check-out-time" value="12:00" class="form-control">
+                  </div>
+                  <div class="form-group">
+                    <label for="min-advance-booking">Minimum Advance Booking (days)</label>
+                    <input type="number" id="min-advance-booking" value="1" min="0" class="form-control">
+                  </div>
+                  <div class="form-group">
+                    <label for="max-advance-booking">Maximum Advance Booking (days)</label>
+                    <input type="number" id="max-advance-booking" value="365" min="1" class="form-control">
+                  </div>
+                  <div class="form-group">
+                    <label for="cancellation-policy">Default Cancellation Policy</label>
+                    <select id="cancellation-policy" class="form-control">
+                      <option value="48h" selected>48 hours before check-in</option>
+                      <option value="24h">24 hours before check-in</option>
+                      <option value="7d">7 days before check-in</option>
+                      <option value="non-refundable">Non-refundable</option>
+                    </select>
+                  </div>
+                  <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <!-- Email Settings -->
+            <div class="settings-card">
+              <div class="settings-header">
+                <h3>Email Notifications</h3>
+              </div>
+              <div class="settings-body">
+                <form class="settings-form">
+                  <div class="form-group checkbox">
+                    <input type="checkbox" id="email-new-booking" checked>
+                    <label for="email-new-booking">New Booking Notifications</label>
+                  </div>
+                  <div class="form-group checkbox">
+                    <input type="checkbox" id="email-booking-confirmation" checked>
+                    <label for="email-booking-confirmation">Booking Confirmation to Guests</label>
+                  </div>
+                  <div class="form-group checkbox">
+                    <input type="checkbox" id="email-booking-reminder" checked>
+                    <label for="email-booking-reminder">Booking Reminder (24h before)</label>
+                  </div>
+                  <div class="form-group checkbox">
+                    <input type="checkbox" id="email-cancellation" checked>
+                    <label for="email-cancellation">Cancellation Notifications</label>
+                  </div>
+                  <div class="form-group checkbox">
+                    <input type="checkbox" id="email-review-request">
+                    <label for="email-review-request">Post-stay Review Requests</label>
+                  </div>
+                  <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                  </div>
+                
+                </form>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="copyright">
+          &copy; <%= new Date().getFullYear() %> Elara Regency. All rights reserved.
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="/js/main.js"></script>
+  <script type="module" src="/js/admin-dashboard.js"></script>
+</body>
+</html>
