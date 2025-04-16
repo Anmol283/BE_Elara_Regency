@@ -1,6 +1,4 @@
-import { Chart } from "@/components/ui/chart"
 // Admin Dashboard JavaScript
-
 document.addEventListener("DOMContentLoaded", () => {
   // Initialize sidebar navigation
   initSidebar()

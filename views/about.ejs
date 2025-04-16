@@ -1,13 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><%= title %></title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Lora:wght@400;500;600&display=swap">
+  <title>
+    <%= title %>
+  </title>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Lora:wght@400;500;600&display=swap">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
   <link rel="stylesheet" href="/css/style.css">
 </head>
+
 <body>
   <div class="about-page">
     <!-- Header -->
@@ -25,10 +30,10 @@
             <% if (isLoggedIn) { %>
               <li><a href="/reservation">Reservation</a></li>
               <li><a href="/logout">Logout</a></li>
-            <% } else { %>
-              <li><a href="/login">Login</a></li>
-              <li><a href="/register">Register</a></li>
-            <% } %>
+              <% } else { %>
+                <li><a href="/login">Login</a></li>
+                <li><a href="/register">Register</a></li>
+                <% } %>
           </ul>
           <div class="hamburger">
             <div></div>
@@ -40,7 +45,8 @@
     </header>
 
     <!-- Page Banner -->
-    <section class="page-banner" style="background-image: url('https://images.unsplash.com/photo-1717687099734-4fe6563e2863?q=80&w=2671&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); padding: 150px 0 100px; background-size: cover; background-position: center;">
+    <section class="page-banner"
+      style="background-image: url('https://images.unsplash.com/photo-1717687099734-4fe6563e2863?q=80&w=2671&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); padding: 150px 0 100px; background-size: cover; background-position: center;">
       <div class="container text-center">
         <h1>About Elara Regency</h1>
         <p>Our story of luxury, excellence, and unparalleled hospitality</p>
@@ -53,16 +59,24 @@
         <div class="section-title">
           <h2>Our Story</h2>
         </div>
-        
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem; align-items: center;">
+
+        <div
+          style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem; align-items: center;">
           <div>
-            <p>Founded in 1985 by visionary hotelier Jonathan Elara, Elara Regency began with a single property in New York City. Jonathan's vision was simple yet ambitious: to create hotels that would redefine luxury hospitality by combining timeless elegance with personalized service and attention to detail.</p>
-            <p>Over the decades, Elara Regency has grown from a single boutique hotel to a global luxury hospitality brand with properties in the world's most coveted destinations. Throughout our expansion, we have remained true to our founding principles, ensuring that each Elara Regency property offers the same exceptional experience that has become our hallmark.</p>
-            <p>Today, under the leadership of CEO Victoria Elara, Jonathan's daughter, we continue to innovate and elevate the luxury hotel experience while honoring our rich heritage and commitment to excellence.</p>
+            <p>Founded in 1985 by visionary hotelier Jonathan Elara, Elara Regency began with a single property in New
+              York City. Jonathan's vision was simple yet ambitious: to create hotels that would redefine luxury
+              hospitality by combining timeless elegance with personalized service and attention to detail.</p>
+            <p>Over the decades, Elara Regency has grown from a single boutique hotel to a global luxury hospitality
+              brand with properties in the world's most coveted destinations. Throughout our expansion, we have remained
+              true to our founding principles, ensuring that each Elara Regency property offers the same exceptional
+              experience that has become our hallmark.</p>
+            <p>Today, under the leadership of CEO Victoria Elara, Jonathan's daughter, we continue to innovate and
+              elevate the luxury hotel experience while honoring our rich heritage and commitment to excellence.</p>
           </div>
-          
+
           <div>
-            <img src="https://images.unsplash.com/photo-1529290130-4ca3753253ae?auto=format&fit=crop&w=800&q=80" alt="Elara Regency History" style="width: 100%; border-radius: 5px; box-shadow: var(--shadow-lg);">
+            <img src="https://images.unsplash.com/photo-1529290130-4ca3753253ae?auto=format&fit=crop&w=800&q=80"
+              alt="Elara Regency History" style="width: 100%; border-radius: 5px; box-shadow: var(--shadow-lg);">
           </div>
         </div>
       </div>
@@ -74,45 +88,51 @@
         <div class="section-title">
           <h2>Our Philosophy</h2>
         </div>
-        
+
         <div class="text-center" style="max-width: 800px; margin: 0 auto;">
           <p style="font-size: 1.2rem; font-style: italic; margin-bottom: 2rem;">
-            "Luxury is not about opulence, but about creating moments of perfection through thoughtful service and meticulous attention to detail."
+            "Luxury is not about opulence, but about creating moments of perfection through thoughtful service and
+            meticulous attention to detail."
           </p>
           <p style="margin-bottom: 1rem;">— Jonathan Elara, Founder</p>
         </div>
-        
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 3rem;">
+
+        <div
+          style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 3rem;">
           <div class="feature">
             <div class="feature-icon">
               <i class="bi bi-gem"></i>
             </div>
             <h3>Uncompromising Quality</h3>
-            <p>We believe in delivering the highest quality in every aspect of our service, from the materials in our rooms to the ingredients in our restaurants.</p>
+            <p>We believe in delivering the highest quality in every aspect of our service, from the materials in our
+              rooms to the ingredients in our restaurants.</p>
           </div>
-          
+
           <div class="feature">
             <div class="feature-icon">
               <i class="bi bi-heart"></i>
             </div>
             <h3>Personalized Service</h3>
-            <p>We recognize that true luxury lies in personalization. Our staff is trained to anticipate and fulfill the unique needs of each guest.</p>
+            <p>We recognize that true luxury lies in personalization. Our staff is trained to anticipate and fulfill the
+              unique needs of each guest.</p>
           </div>
-          
+
           <div class="feature">
             <div class="feature-icon">
               <i class="bi bi-globe"></i>
             </div>
             <h3>Cultural Authenticity</h3>
-            <p>Each of our properties embraces and celebrates the culture and heritage of its location, offering guests an authentic experience.</p>
+            <p>Each of our properties embraces and celebrates the culture and heritage of its location, offering guests
+              an authentic experience.</p>
           </div>
-          
+
           <div class="feature">
             <div class="feature-icon">
               <i class="bi bi-shield-check"></i>
             </div>
             <h3>Sustainable Luxury</h3>
-            <p>We are committed to responsible luxury, implementing sustainable practices that respect our environment and communities.</p>
+            <p>We are committed to responsible luxury, implementing sustainable practices that respect our environment
+              and communities.</p>
           </div>
         </div>
       </div>
@@ -124,38 +144,50 @@
         <div class="section-title">
           <h2>Our Leadership</h2>
         </div>
-        
+
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
           <!-- CEO -->
           <div style="text-align: center;">
-            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80" alt="Victoria Elara" style="width: 200px; height: 200px; object-fit: cover; border-radius: 50%; margin-bottom: 1rem;">
+            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80"
+              alt="Victoria Elara"
+              style="width: 200px; height: 200px; object-fit: cover; border-radius: 50%; margin-bottom: 1rem;">
             <h3>Victoria Elara</h3>
             <p style="color: var(--gold); margin-bottom: 1rem;">Chief Executive Officer</p>
-            <p>Victoria has led Elara Regency since 2010, continuing her father's legacy while driving innovation and global expansion.</p>
+            <p>Victoria has led Elara Regency since 2010, continuing her father's legacy while driving innovation and
+              global expansion.</p>
           </div>
-          
+
           <!-- COO -->
           <div style="text-align: center;">
-            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&q=80" alt="James Richardson" style="width: 200px; height: 200px; object-fit: cover; border-radius: 50%; margin-bottom: 1rem;">
+            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&q=80"
+              alt="James Richardson"
+              style="width: 200px; height: 200px; object-fit: cover; border-radius: 50%; margin-bottom: 1rem;">
             <h3>James Richardson</h3>
             <p style="color: var(--gold); margin-bottom: 1rem;">Chief Operating Officer</p>
-            <p>With over 25 years in luxury hospitality, James oversees the day-to-day operations of all Elara Regency properties.</p>
+            <p>With over 25 years in luxury hospitality, James oversees the day-to-day operations of all Elara Regency
+              properties.</p>
           </div>
-          
+
           <!-- CMO -->
           <div style="text-align: center;">
-            <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=400&q=80" alt="Sophia Chen" style="width: 200px; height: 200px; object-fit: cover; border-radius: 50%; margin-bottom: 1rem;">
+            <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=400&q=80"
+              alt="Sophia Chen"
+              style="width: 200px; height: 200px; object-fit: cover; border-radius: 50%; margin-bottom: 1rem;">
             <h3>Sophia Chen</h3>
             <p style="color: var(--gold); margin-bottom: 1rem;">Chief Marketing Officer</p>
-            <p>Sophia leads our global marketing strategy, ensuring the Elara Regency brand remains synonymous with luxury and excellence.</p>
+            <p>Sophia leads our global marketing strategy, ensuring the Elara Regency brand remains synonymous with
+              luxury and excellence.</p>
           </div>
-          
+
           <!-- Head Chef -->
           <div style="text-align: center;">
-            <img src="https://images.unsplash.com/photo-1583394838336-acd977736f90?auto=format&fit=crop&w=400&q=80" alt="Marco Rossi" style="width: 200px; height: 200px; object-fit: cover; border-radius: 50%; margin-bottom: 1rem;">
+            <img src="https://images.unsplash.com/photo-1583394838336-acd977736f90?auto=format&fit=crop&w=400&q=80"
+              alt="Marco Rossi"
+              style="width: 200px; height: 200px; object-fit: cover; border-radius: 50%; margin-bottom: 1rem;">
             <h3>Marco Rossi</h3>
             <p style="color: var(--gold); margin-bottom: 1rem;">Global Culinary Director</p>
-            <p>A Michelin-starred chef, Marco oversees the culinary direction of all Elara Regency restaurants worldwide.</p>
+            <p>A Michelin-starred chef, Marco oversees the culinary direction of all Elara Regency restaurants
+              worldwide.</p>
           </div>
         </div>
       </div>
@@ -167,7 +199,7 @@
         <div class="section-title">
           <h2>Awards & Recognition</h2>
         </div>
-        
+
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
           <div class="feature">
             <div class="feature-icon">
@@ -176,7 +208,7 @@
             <h3>World's Leading Luxury Hotel Brand</h3>
             <p>World Travel Awards, 2020-2023</p>
           </div>
-          
+
           <div class="feature">
             <div class="feature-icon">
               <i class="bi bi-star"></i>
@@ -184,7 +216,7 @@
             <h3>Five-Star Rating</h3>
             <p>Forbes Travel Guide, All Properties, 2018-2023</p>
           </div>
-          
+
           <div class="feature">
             <div class="feature-icon">
               <i class="bi bi-award"></i>
@@ -192,7 +224,7 @@
             <h3>Best Hotel Group Worldwide</h3>
             <p>Luxury Travel Intelligence, 2021-2023</p>
           </div>
-          
+
           <div class="feature">
             <div class="feature-icon">
               <i class="bi bi-globe2"></i>
@@ -200,7 +232,7 @@
             <h3>World's Most Sustainable Luxury Hotel Chain</h3>
             <p>Global Sustainable Tourism Council, 2022</p>
           </div>
-          
+
           <div class="feature">
             <div class="feature-icon">
               <i class="bi bi-cup-hot"></i>
@@ -208,7 +240,7 @@
             <h3>Best Hotel Dining Experience</h3>
             <p>International Culinary Excellence Awards, 2019-2023</p>
           </div>
-          
+
           <div class="feature">
             <div class="feature-icon">
               <i class="bi bi-people"></i>
@@ -226,21 +258,28 @@
         <div class="section-title">
           <h2>Our Commitment</h2>
         </div>
-        
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem; align-items: center;">
+
+        <div
+          style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem; align-items: center;">
           <div>
-            <img src="https://images.unsplash.com/photo-1532375810709-75b1da00537c?auto=format&fit=crop&w=800&q=80" alt="Sustainability Initiatives" style="width: 100%; border-radius: 5px; box-shadow: var(--shadow-lg);">
+            <img src="https://images.unsplash.com/photo-1532375810709-75b1da00537c?auto=format&fit=crop&w=800&q=80"
+              alt="Sustainability Initiatives" style="width: 100%; border-radius: 5px; box-shadow: var(--shadow-lg);">
           </div>
-          
+
           <div>
             <h3 style="color: var(--gold); margin-bottom: 1rem;">Sustainability</h3>
-            <p>At Elara Regency, we believe that luxury and sustainability can and must coexist. Our commitment to environmental stewardship is reflected in every aspect of our operations, from energy-efficient buildings to waste reduction programs and locally sourced ingredients in our restaurants.</p>
-            
+            <p>At Elara Regency, we believe that luxury and sustainability can and must coexist. Our commitment to
+              environmental stewardship is reflected in every aspect of our operations, from energy-efficient buildings
+              to waste reduction programs and locally sourced ingredients in our restaurants.</p>
+
             <h3 style="color: var(--gold); margin: 1.5rem 0 1rem;">Community</h3>
-            <p>We are dedicated to making a positive impact in the communities where we operate. Through the Elara Foundation, we support local education, arts, and environmental initiatives, and we prioritize hiring and sourcing locally whenever possible.</p>
-            
+            <p>We are dedicated to making a positive impact in the communities where we operate. Through the Elara
+              Foundation, we support local education, arts, and environmental initiatives, and we prioritize hiring and
+              sourcing locally whenever possible.</p>
+
             <h3 style="color: var(--gold); margin: 1.5rem 0 1rem;">Diversity & Inclusion</h3>
-            <p>We celebrate diversity in our workforce and are committed to creating an inclusive environment where all employees and guests feel valued and respected, regardless of background, identity, or ability.</p>
+            <p>We celebrate diversity in our workforce and are committed to creating an inclusive environment where all
+              employees and guests feel valued and respected, regardless of background, identity, or ability.</p>
           </div>
         </div>
       </div>
@@ -251,7 +290,9 @@
       <div class="container">
         <div class="text-center">
           <h2>Join Our Team</h2>
-          <p style="max-width: 800px; margin: 0 auto 2rem;">We are always looking for passionate individuals who share our commitment to excellence and hospitality. Explore career opportunities with Elara Regency and be part of our global family.</p>
+          <p style="max-width: 800px; margin: 0 auto 2rem;">We are always looking for passionate individuals who share
+            our commitment to excellence and hospitality. Explore career opportunities with Elara Regency and be part of
+            our global family.</p>
           <a href="#" class="btn">View Career Opportunities</a>
         </div>
       </div>
@@ -263,7 +304,8 @@
         <div class="footer-content">
           <div class="footer-about">
             <div class="footer-logo">Elara Regency</div>
-            <p>Setting new standards in luxury hospitality across the globe with our commitment to excellence and personalized service.</p>
+            <p>Setting new standards in luxury hospitality across the globe with our commitment to excellence and
+              personalized service.</p>
             <div class="social-links">
               <a href="#"><i class="bi bi-facebook"></i></a>
               <a href="#"><i class="bi bi-instagram"></i></a>
@@ -300,4 +342,5 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="/js/main.js"></script>
 </body>
+
 </html>

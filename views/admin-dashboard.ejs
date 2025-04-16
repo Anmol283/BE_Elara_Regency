@@ -1,15 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><%= title %></title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Lora:wght@400;500;600&display=swap">
+  <title>
+    <%= title %>
+  </title>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Lora:wght@400;500;600&display=swap">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/admin-dashboard.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
 <body>
   <div class="dashboard">
     <!-- Header -->
@@ -17,16 +22,19 @@
       <div class="container">
         <nav class="navbar">
           <a href="/" class="logo">Elara Regency</a>
-          <ul class="nav-links">
+          <ul class="nav-links hide-on-admin">
             <li><a href="/">Home</a></li>
             <li><a href="/rooms">Rooms</a></li>
             <li><a href="/locations">Locations</a></li>
             <li><a href="/about">About</a></li>
             <li><a href="/blog">Blog</a></li>
             <li><a href="/contact">Contact</a></li>
+          </ul>
+          <ul class="nav-links">
             <li><a href="/admin-dashboard" class="gold-text">Dashboard</a></li>
             <li><a href="/logout">Logout</a></li>
           </ul>
+          
           <div class="hamburger">
             <div></div>
             <div></div>
@@ -92,7 +100,9 @@
                 <i class="bi bi-people-fill"></i>
               </div>
               <div class="stat-content">
-                <div class="stat-value"><%= users.length %></div>
+                <div class="stat-value">
+                  <%= users.length %>
+                </div>
                 <div class="stat-label">Registered Users</div>
               </div>
               <div class="stat-change positive">
@@ -215,7 +225,8 @@
                 </div>
                 <div class="activity-content">
                   <div class="activity-title">Low Inventory Alert</div>
-                  <div class="activity-details">Standard Rooms in New York location are almost fully booked for next weekend</div>
+                  <div class="activity-details">Standard Rooms in New York location are almost fully booked for next
+                    weekend</div>
                   <div class="activity-time">3 hours ago</div>
                 </div>
               </div>
@@ -230,7 +241,7 @@
                 </div>
               </div>
             </div>
-          
+
           </div>
         </section>
 
@@ -482,12 +493,19 @@
                 </tr>
               </thead>
               <tbody>
-                <% users.forEach(user => { %>
+                <% users.forEach(user=> { %>
                   <tr>
-                    <td>#<%= user.id %></td>
-                    <td><%= user.name %></td>
-                    <td><%= user.email %></td>
-                    <td><span class="role <%= user.isAdmin ? 'admin' : 'user' %>"><%= user.isAdmin ? 'Admin' : 'User' %></span></td>
+                    <td>#<%= user.id %>
+                    </td>
+                    <td>
+                      <%= user.name %>
+                    </td>
+                    <td>
+                      <%= user.email %>
+                    </td>
+                    <td><span class="role <%= user.isAdmin ? 'admin' : 'user' %>">
+                        <%= user.isAdmin ? 'Admin' : 'User' %>
+                      </span></td>
                     <td><span class="status active">Active</span></td>
                     <td>Mar 15, 2023</td>
                     <td>Apr 10, 2023</td>
@@ -499,7 +517,7 @@
                       </div>
                     </td>
                   </tr>
-                <% }); %>
+                  <% }); %>
               </tbody>
             </table>
           </div>
@@ -583,7 +601,8 @@
                     <div class="action-buttons">
                       <button class="action-btn view" title="View Details"><i class="bi bi-eye"></i></button>
                       <button class="action-btn edit" title="Edit Room"><i class="bi bi-pencil"></i></button>
-                      <button class="action-btn maintenance" title="Set Maintenance"><i class="bi bi-tools"></i></button>
+                      <button class="action-btn maintenance" title="Set Maintenance"><i
+                          class="bi bi-tools"></i></button>
                     </div>
                   </td>
                 </tr>
@@ -598,7 +617,8 @@
                     <div class="action-buttons">
                       <button class="action-btn view" title="View Details"><i class="bi bi-eye"></i></button>
                       <button class="action-btn edit" title="Edit Room"><i class="bi bi-pencil"></i></button>
-                      <button class="action-btn maintenance" title="Set Maintenance"><i class="bi bi-tools"></i></button>
+                      <button class="action-btn maintenance" title="Set Maintenance"><i
+                          class="bi bi-tools"></i></button>
                     </div>
                   </td>
                 </tr>
@@ -613,7 +633,8 @@
                     <div class="action-buttons">
                       <button class="action-btn view" title="View Details"><i class="bi bi-eye"></i></button>
                       <button class="action-btn edit" title="Edit Room"><i class="bi bi-pencil"></i></button>
-                      <button class="action-btn maintenance" title="Set Maintenance"><i class="bi bi-tools"></i></button>
+                      <button class="action-btn maintenance" title="Set Maintenance"><i
+                          class="bi bi-tools"></i></button>
                     </div>
                   </td>
                 </tr>
@@ -628,7 +649,8 @@
                     <div class="action-buttons">
                       <button class="action-btn view" title="View Details"><i class="bi bi-eye"></i></button>
                       <button class="action-btn edit" title="Edit Room"><i class="bi bi-pencil"></i></button>
-                      <button class="action-btn maintenance" title="Set Maintenance"><i class="bi bi-tools"></i></button>
+                      <button class="action-btn maintenance" title="Set Maintenance"><i
+                          class="bi bi-tools"></i></button>
                     </div>
                   </td>
                 </tr>
@@ -643,7 +665,8 @@
                     <div class="action-buttons">
                       <button class="action-btn view" title="View Details"><i class="bi bi-eye"></i></button>
                       <button class="action-btn edit" title="Edit Room"><i class="bi bi-pencil"></i></button>
-                      <button class="action-btn maintenance" title="Set Maintenance"><i class="bi bi-tools"></i></button>
+                      <button class="action-btn maintenance" title="Set Maintenance"><i
+                          class="bi bi-tools"></i></button>
                     </div>
                   </td>
                 </tr>
@@ -900,7 +923,7 @@
                   <div class="form-actions">
                     <button type="submit" class="btn btn-primary">Save Changes</button>
                   </div>
-                
+
                 </form>
               </div>
             </div>
@@ -923,4 +946,5 @@
   <script src="/js/main.js"></script>
   <script type="module" src="/js/admin-dashboard.js"></script>
 </body>
+
 </html>

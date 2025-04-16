@@ -1,13 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><%= title %></title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Lora:wght@400;500;600&display=swap">
+  <title>
+    <%= title %>
+  </title>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Lora:wght@400;500;600&display=swap">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
   <link rel="stylesheet" href="/css/style.css">
 </head>
+
 <body>
   <div class="location-detail-page">
     <!-- Header -->
@@ -25,10 +30,10 @@
             <% if (isLoggedIn) { %>
               <li><a href="/reservation">Reservation</a></li>
               <li><a href="/logout">Logout</a></li>
-            <% } else { %>
-              <li><a href="/login">Login</a></li>
-              <li><a href="/register">Register</a></li>
-            <% } %>
+              <% } else { %>
+                <li><a href="/login">Login</a></li>
+                <li><a href="/register">Register</a></li>
+                <% } %>
           </ul>
           <div class="hamburger">
             <div></div>
@@ -39,267 +44,243 @@
       </div>
     </header>
 
-    <% 
-    // Location data mapping
-    const locationData = {
-      'new-york': {
-        name: 'New York',
-        tagline: 'Experience Manhattan Luxury',
-        description: 'Our flagship property in the heart of Manhattan offers unparalleled luxury with stunning views of Central Park. Located on Fifth Avenue, this iconic hotel combines classic New York elegance with modern sophistication.',
-        address: '123 Fifth Avenue, New York, NY 10010',
-        phone: '+1 (212) 555-1234',
-        email: 'newyork@elararegency.com',
-        heroImage: 'https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?auto=format&fit=crop&w=1920&q=80',
-        gallery: [
-          'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80',
-          'https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=800&q=80',
-          'https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=800&q=80',
-          'https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=800&q=80'
-        ],
-        amenities: ['Rooftop Pool', 'Michelin-Star Restaurant', 'Luxury Spa', 'Fitness Center', 'Business Center', 'Concierge Service']
-      },
-      'paris': {
-        name: 'Paris',
-        tagline: 'Timeless Parisian Elegance',
-        description: 'Experience timeless elegance in our Parisian hotel, offering breathtaking views of the Eiffel Tower. Located on Avenue Montaigne, our hotel embodies the sophistication and romance of the City of Light.',
-        address: '15 Avenue Montaigne, 75008 Paris, France',
-        phone: '+33 1 42 66 XX XX',
-        email: 'paris@elararegency.com',
-        heroImage: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=1920&q=80',
-        gallery: [
-          'https://images.unsplash.com/photo-1578683010236-d716f9a3f461?auto=format&fit=crop&w=800&q=80',
-          'https://images.unsplash.com/photo-1560448204-603b3fc33ddc?auto=format&fit=crop&w=800&q=80',
-          'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?auto=format&fit=crop&w=800&q=80',
-          'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?auto=format&fit=crop&w=800&q=80'
-        ],
-        amenities: ['Eiffel Tower Views', 'French Gourmet Restaurant', 'Wine Cellar', 'Luxury Spa', 'Fitness Center', 'Concierge Service']
-      },
-      'dubai': {
-        name: 'Dubai',
-        tagline: 'Arabian Luxury Redefined',
-        description: 'Our Dubai property redefines luxury with its iconic architecture and unmatched Arabian hospitality. Located on Palm Jumeirah, this stunning hotel offers panoramic views of the Arabian Gulf.',
-        address: 'Palm Jumeirah, Dubai, UAE',
-        phone: '+971 4 XXX XXXX',
-        email: 'dubai@elararegency.com',
-        heroImage: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1920&q=80',
-        gallery: [
-          'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80',
-          'https://images.unsplash.com/photo-1540518614846-7eded433c457?auto=format&fit=crop&w=800&q=80',
-          'https://images.unsplash.com/photo-1591088398332-8a7791972843?auto=format&fit=crop&w=800&q=80',
-          'https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=800&q=80'
-        ],
-        amenities: ['Private Beach', 'Infinity Pool', 'Arabian Restaurant', 'Desert Excursions', 'Luxury Spa', 'Yacht Rental']
-      },
-      'tokyo': {
-        name: 'Tokyo',
-        tagline: 'Modern Japanese Luxury',
-        description: 'Our Tokyo location blends traditional Japanese aesthetics with modern luxury in the vibrant Ginza district. This urban sanctuary offers a perfect balance of tranquility and excitement.',
-        address: '1-1 Ginza, Chuo City, Tokyo 104-0061, Japan',
-        phone: '+81 3 XXXX XXXX',
-        email: 'tokyo@elararegency.com',
-        heroImage: 'https://images.unsplash.com/photo-1536098561742-ca998e48cbcc?auto=format&fit=crop&w=1920&q=80',
-        gallery: [
-          'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?auto=format&fit=crop&w=800&q=80',
-          'https://images.unsplash.com/photo-1560448204-603b3fc33ddc?auto=format&fit=crop&w=800&q=80',
-          'https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=800&q=80',
-          'https://images.unsplash.com/photo-1584132967334-10e028bd69f7?auto=format&fit=crop&w=800&q=80'
-        ],
-        amenities: ['Zen Garden', 'Sushi Restaurant', 'Tea Ceremony Room', 'Karaoke Lounge', 'Luxury Spa', 'Shopping Concierge']
-      },
-      'sydney': {
-        name: 'Sydney',
-        tagline: 'Harbor Views & Australian Charm',
-        description: 'Enjoy breathtaking harbor views from our Sydney property, located in the prestigious Circular Quay area. This contemporary hotel offers the perfect blend of Australian charm and international luxury.',
-        address: '1 Macquarie Street, Sydney NSW 2000, Australia',
-        phone: '+61 2 XXXX XXXX',
-        email: 'sydney@elararegency.com',
-        heroImage: 'https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?auto=format&fit=crop&w=1920&q=80',
-        gallery: [
-          'https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=800&q=80',
-          'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80',
-          'https://images.unsplash.com/photo-1578683010236-d716f9a3f461?auto=format&fit=crop&w=800&q=80',
-          'https://images.unsplash.com/photo-1560448204-603b3fc33ddc?auto=format&fit=crop&w=800&q=80'
-        ],
-        amenities: ['Harbor Views', 'Seafood Restaurant', 'Outdoor Pool', 'Yacht Charters', 'Luxury Spa', 'Opera House Tours']
-      },
-      'maldives': {
-        name: 'Maldives',
-        tagline: 'Paradise Island Luxury',
-        description: 'Our exclusive private island resort in the Maldives offers the ultimate luxury escape in paradise. With overwater villas and pristine beaches, this is the epitome of tropical luxury.',
-        address: 'Baa Atoll, Maldives',
-        phone: '+960 XXX XXXX',
-        email: 'maldives@elararegency.com',
-        heroImage: 'https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=1920&q=80',
-        gallery: [
-          'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?auto=format&fit=crop&w=800&q=80',
-          'https://images.unsplash.com/photo-1540518614846-7eded433c457?auto=format&fit=crop&w=800&q=80',
-          'https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=800&q=80',
-          'https://images.unsplash.com/photo-1560448075-bb485b067938?auto=format&fit=crop&w=800&q=80'
-        ],
-        amenities: ['Overwater Villas', 'Private Beaches', 'Underwater Restaurant', 'Snorkeling & Diving', 'Sunset Cruises', 'Luxury Spa']
-      }
-    };
-    
-    // Get current location data
-    const currentLocation = locationData[location] || locationData['new-york'];
-    %>
+    <% // Location data mapping const locationData={ 'new-york' : { name: 'New York' ,
+      tagline: 'Experience Manhattan Luxury' ,
+      description: 'Our flagship property in the heart of Manhattan offers unparalleled luxury with stunning views of Central Park. Located on Fifth Avenue, this iconic hotel combines classic New York elegance with modern sophistication.'
+      , address: '123 Fifth Avenue, New York, NY 10010' , phone: '+1 (212) 555-1234' , email: 'newyork@elararegency.com'
+      , heroImage: 'https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?auto=format&fit=crop&w=1920&q=80' ,
+      gallery: [ 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80'
+      , 'https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=800&q=80'
+      , 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=800&q=80'
+      , 'https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=800&q=80' ], amenities:
+      ['Rooftop Pool', 'Michelin-Star Restaurant' , 'Luxury Spa' , 'Fitness Center' , 'Business Center'
+      , 'Concierge Service' ] }, 'paris' : { name: 'Paris' , tagline: 'Timeless Parisian Elegance' ,
+      description: 'Experience timeless elegance in our Parisian hotel, offering breathtaking views of the Eiffel Tower. Located on Avenue Montaigne, our hotel embodies the sophistication and romance of the City of Light.'
+      , address: '15 Avenue Montaigne, 75008 Paris, France' , phone: '+33 1 42 66 XX XX' ,
+      email: 'paris@elararegency.com' ,
+      heroImage: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=1920&q=80' ,
+      gallery: [ 'https://images.unsplash.com/photo-1578683010236-d716f9a3f461?auto=format&fit=crop&w=800&q=80'
+      , 'https://images.unsplash.com/photo-1560448204-603b3fc33ddc?auto=format&fit=crop&w=800&q=80'
+      , 'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?auto=format&fit=crop&w=800&q=80'
+      , 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?auto=format&fit=crop&w=800&q=80' ], amenities:
+      ['Eiffel Tower Views', 'French Gourmet Restaurant' , 'Wine Cellar' , 'Luxury Spa' , 'Fitness Center'
+      , 'Concierge Service' ] }, 'dubai' : { name: 'Dubai' , tagline: 'Arabian Luxury Redefined' ,
+      description: 'Our Dubai property redefines luxury with its iconic architecture and unmatched Arabian hospitality. Located on Palm Jumeirah, this stunning hotel offers panoramic views of the Arabian Gulf.'
+      , address: 'Palm Jumeirah, Dubai, UAE' , phone: '+971 4 XXX XXXX' , email: 'dubai@elararegency.com' ,
+      heroImage: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1920&q=80' ,
+      gallery: [ 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80'
+      , 'https://images.unsplash.com/photo-1540518614846-7eded433c457?auto=format&fit=crop&w=800&q=80'
+      , 'https://images.unsplash.com/photo-1591088398332-8a7791972843?auto=format&fit=crop&w=800&q=80'
+      , 'https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=800&q=80' ], amenities:
+      ['Private Beach', 'Infinity Pool' , 'Arabian Restaurant' , 'Desert Excursions' , 'Luxury Spa' , 'Yacht Rental' ]
+      }, 'tokyo' : { name: 'Tokyo' , tagline: 'Modern Japanese Luxury' ,
+      description: 'Our Tokyo location blends traditional Japanese aesthetics with modern luxury in the vibrant Ginza district. This urban sanctuary offers a perfect balance of tranquility and excitement.'
+      , address: '1-1 Ginza, Chuo City, Tokyo 104-0061, Japan' , phone: '+81 3 XXXX XXXX' ,
+      email: 'tokyo@elararegency.com' ,
+      heroImage: 'https://images.unsplash.com/photo-1536098561742-ca998e48cbcc?auto=format&fit=crop&w=1920&q=80' ,
+      gallery: [ 'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?auto=format&fit=crop&w=800&q=80'
+      , 'https://images.unsplash.com/photo-1560448204-603b3fc33ddc?auto=format&fit=crop&w=800&q=80'
+      , 'https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=800&q=80'
+      , 'https://images.unsplash.com/photo-1584132967334-10e028bd69f7?auto=format&fit=crop&w=800&q=80' ], amenities:
+      ['Zen Garden', 'Sushi Restaurant' , 'Tea Ceremony Room' , 'Karaoke Lounge' , 'Luxury Spa' , 'Shopping Concierge' ]
+      }, 'sydney' : { name: 'Sydney' , tagline: 'Harbor Views & Australian Charm' ,
+      description: 'Enjoy breathtaking harbor views from our Sydney property, located in the prestigious Circular Quay area. This contemporary hotel offers the perfect blend of Australian charm and international luxury.'
+      , address: '1 Macquarie Street, Sydney NSW 2000, Australia' , phone: '+61 2 XXXX XXXX' ,
+      email: 'sydney@elararegency.com' ,
+      heroImage: 'https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?auto=format&fit=crop&w=1920&q=80' ,
+      gallery: [ 'https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=800&q=80'
+      , 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80'
+      , 'https://images.unsplash.com/photo-1578683010236-d716f9a3f461?auto=format&fit=crop&w=800&q=80'
+      , 'https://images.unsplash.com/photo-1560448204-603b3fc33ddc?auto=format&fit=crop&w=800&q=80' ], amenities:
+      ['Harbor Views', 'Seafood Restaurant' , 'Outdoor Pool' , 'Yacht Charters' , 'Luxury Spa' , 'Opera House Tours' ]
+      }, 'maldives' : { name: 'Maldives' , tagline: 'Paradise Island Luxury' ,
+      description: 'Our exclusive private island resort in the Maldives offers the ultimate luxury escape in paradise. With overwater villas and pristine beaches, this is the epitome of tropical luxury.'
+      , address: 'Baa Atoll, Maldives' , phone: '+960 XXX XXXX' , email: 'maldives@elararegency.com' ,
+      heroImage: 'https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=1920&q=80' ,
+      gallery: [ 'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?auto=format&fit=crop&w=800&q=80'
+      , 'https://images.unsplash.com/photo-1540518614846-7eded433c457?auto=format&fit=crop&w=800&q=80'
+      , 'https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=800&q=80'
+      , 'https://images.unsplash.com/photo-1560448075-bb485b067938?auto=format&fit=crop&w=800&q=80' ], amenities:
+      ['Overwater Villas', 'Private Beaches' , 'Underwater Restaurant' , 'Snorkeling & Diving' , 'Sunset Cruises'
+      , 'Luxury Spa' ] } }; // Get current location data const currentLocation=locationData[location] ||
+      locationData['new-york']; %>
 
-    <!-- Page Banner -->
-    <section class="page-banner" style="background-image: linear-gradient(rgba(10, 35, 66, 0.7), rgba(10, 35, 66, 0.7)), url('<%= currentLocation.heroImage %>'); padding: 150px 0 100px; background-size: cover; background-position: center;">
-      <div class="container text-center">
-        <h1>Elara Regency <%= currentLocation.name %></h1>
-        <p><%= currentLocation.tagline %></p>
-      </div>
-    </section>
-
-    <!-- Location Overview -->
-    <section class="section">
-      <div class="container">
-        <div class="section-title">
-          <h2>About Our <%= currentLocation.name %> Property</h2>
+      <!-- Page Banner -->
+      <section class="page-banner"
+        style="background-image: linear-gradient(rgba(10, 35, 66, 0.7), rgba(10, 35, 66, 0.7)), url('<%= currentLocation.heroImage %>'); padding: 150px 0 100px; background-size: cover; background-position: center;">
+        <div class="container text-center">
+          <h1>Elara Regency <%= currentLocation.name %>
+          </h1>
+          <p>
+            <%= currentLocation.tagline %>
+          </p>
         </div>
-        
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem; align-items: center;">
-          <div>
-            <p><%= currentLocation.description %></p>
-            
-            <div style="margin-top: 2rem;">
-              <h4 style="color: var(--gold); margin-bottom: 1rem;">Contact Information</h4>
-              <p><i class="bi bi-geo-alt"></i> <%= currentLocation.address %></p>
-              <p><i class="bi bi-telephone"></i> <%= currentLocation.phone %></p>
-              <p><i class="bi bi-envelope"></i> <%= currentLocation.email %></p>
-            </div>
-            
-            <div style="margin-top: 2rem;">
-              <a href="/reservation" class="btn">Book Your Stay</a>
-            </div>
+      </section>
+
+      <!-- Location Overview -->
+      <section class="section">
+        <div class="container">
+          <div class="section-title">
+            <h2>About Our <%= currentLocation.name %> Property</h2>
           </div>
-          
-          <div>
-            <img src="<%= currentLocation.gallery[0] %>" alt="<%= currentLocation.name %> Property" style="width: 100%; border-radius: 5px; box-shadow: var(--shadow-lg);">
-          </div>
-        </div>
-      </div>
-    </section>
 
-    <!-- Gallery Section -->
-    <section class="section" style="background-color: var(--dark-secondary);">
-      <div class="container">
-        <div class="section-title">
-          <h2 style="color: var(--cream);">Property Gallery</h2>
-        </div>
-        
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
-          <% currentLocation.gallery.forEach(image => { %>
-            <img src="<%= image %>" alt="<%= currentLocation.name %> Property" style="width: 100%; height: 200px; object-fit: cover; border-radius: 5px; cursor: pointer;" class="gallery-img">
-          <% }); %>
-        </div>
-      </div>
-    </section>
+          <div
+            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem; align-items: center;">
+            <div>
+              <p>
+                <%= currentLocation.description %>
+              </p>
 
-    <!-- Amenities Section -->
-    <section class="section">
-      <div class="container">
-        <div class="section-title">
-          <h2>Exclusive Amenities</h2>
-        </div>
-        
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
-          <% currentLocation.amenities.forEach(amenity => { %>
-            <div class="feature">
-              <div class="feature-icon">
-                <i class="bi bi-star"></i>
+              <div style="margin-top: 2rem;">
+                <h4 style="color: var(--gold); margin-bottom: 1rem;">Contact Information</h4>
+                <p><i class="bi bi-geo-alt"></i>
+                  <%= currentLocation.address %>
+                </p>
+                <p><i class="bi bi-telephone"></i>
+                  <%= currentLocation.phone %>
+                </p>
+                <p><i class="bi bi-envelope"></i>
+                  <%= currentLocation.email %>
+                </p>
               </div>
-              <h3><%= amenity %></h3>
-              <p>Experience the finest <%= amenity.toLowerCase() %> at Elara Regency <%= currentLocation.name %>.</p>
+
+              <div style="margin-top: 2rem;">
+                <a href="/reservation" class="btn">Book Your Stay</a>
+              </div>
             </div>
-          <% }); %>
-        </div>
-      </div>
-    </section>
 
-    <!-- CTA Section -->
-    <section class="section" style="background-color: var(--dark-secondary);">
-      <div class="container">
-        <div class="text-center">
-          <h2 style="color: var(--cream);">Experience <%= currentLocation.name %> Like Never Before</h2>
-          <p style="color: var(--cream);">Book your stay today and immerse yourself in the luxury of Elara Regency <%= currentLocation.name %>.</p>
-          <div style="margin-top: 2rem;">
-            <a href="/reservation" class="btn">Make a Reservation</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-      <div class="container">
-        <div class="footer-content">
-          <div class="footer-about">
-            <div class="footer-logo">Elara Regency</div>
-            <p>Setting new standards in luxury hospitality across the globe with our commitment to excellence and personalized service.</p>
-            <div class="social-links">
-              <a href="#"><i class="bi bi-facebook"></i></a>
-              <a href="#"><i class="bi bi-instagram"></i></a>
-              <a href="#"><i class="bi bi-twitter"></i></a>
-              <a href="#"><i class="bi bi-linkedin"></i></a>
+            <div>
+              <img src="<%= currentLocation.gallery[0] %>" alt="<%= currentLocation.name %> Property"
+                style="width: 100%; border-radius: 5px; box-shadow: var(--shadow-lg);">
             </div>
           </div>
-          <div class="footer-links">
-            <h3>Quick Links</h3>
-            <ul>
-              <li><a href="/">Home</a></li>
-              <li><a href="/rooms">Rooms</a></li>
-              <li><a href="/locations">Locations</a></li>
-              <li><a href="/about">About</a></li>
-              <li><a href="/contact">Contact</a></li>
-            </ul>
-          </div>
-          <div class="footer-links">
-            <h3>Contact Us</h3>
-            <ul>
-              <li><i class="bi bi-geo-alt"></i> Global Headquarters</li>
-              <li><i class="bi bi-geo-alt"></i> 123 Luxury Avenue, New York</li>
-              <li><i class="bi bi-telephone"></i> +1 (555) 123-4567</li>
-              <li><i class="bi bi-envelope"></i> info@elararegency.com</li>
-            </ul>
-          </div>
         </div>
-        <div class="copyright">
-          &copy; <%= new Date().getFullYear() %> Elara Regency. All rights reserved.
-        </div>
-      </div>
-    </footer>
+      </section>
 
-    <!-- Gallery Modal -->
-    <div class="gallery-modal">
-      <div class="gallery-modal-content">
-        <img src="/placeholder.svg" alt="Gallery Image" class="gallery-modal-img">
-        <div class="gallery-modal-close"><i class="bi bi-x-lg"></i></div>
-        <div class="gallery-modal-nav gallery-modal-prev"><i class="bi bi-chevron-left"></i></div>
-        <div class="gallery-modal-nav gallery-modal-next"><i class="bi bi-chevron-right"></i></div>
+      <!-- Gallery Section -->
+      <section class="section" style="background-color: var(--dark-secondary);">
+        <div class="container">
+          <div class="section-title">
+            <h2 style="color: var(--cream);">Property Gallery</h2>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+            <% currentLocation.gallery.forEach(image=> { %>
+              <img src="<%= image %>" alt="<%= currentLocation.name %> Property"
+                style="width: 100%; height: 200px; object-fit: cover; border-radius: 5px; cursor: pointer;"
+                class="gallery-img">
+              <% }); %>
+          </div>
+        </div>
+      </section>
+
+      <!-- Amenities Section -->
+      <section class="section">
+        <div class="container">
+          <div class="section-title">
+            <h2>Exclusive Amenities</h2>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
+            <% currentLocation.amenities.forEach(amenity=> { %>
+              <div class="feature">
+                <div class="feature-icon">
+                  <i class="bi bi-star"></i>
+                </div>
+                <h3>
+                  <%= amenity %>
+                </h3>
+                <p>Experience the finest <%= amenity.toLowerCase() %> at Elara Regency <%= currentLocation.name %>.</p>
+              </div>
+              <% }); %>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA Section -->
+      <section class="section" style="background-color: var(--dark-secondary);">
+        <div class="container">
+          <div class="text-center">
+            <h2 style="color: var(--cream);">Experience <%= currentLocation.name %> Like Never Before</h2>
+            <p style="color: var(--cream);">Book your stay today and immerse yourself in the luxury of Elara Regency <%=
+                currentLocation.name %>.</p>
+            <div style="margin-top: 2rem;">
+              <a href="/reservation" class="btn">Make a Reservation</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="footer">
+        <div class="container">
+          <div class="footer-content">
+            <div class="footer-about">
+              <div class="footer-logo">Elara Regency</div>
+              <p>Setting new standards in luxury hospitality across the globe with our commitment to excellence and
+                personalized service.</p>
+              <div class="social-links">
+                <a href="#"><i class="bi bi-facebook"></i></a>
+                <a href="#"><i class="bi bi-instagram"></i></a>
+                <a href="#"><i class="bi bi-twitter"></i></a>
+                <a href="#"><i class="bi bi-linkedin"></i></a>
+              </div>
+            </div>
+            <div class="footer-links">
+              <h3>Quick Links</h3>
+              <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/rooms">Rooms</a></li>
+                <li><a href="/locations">Locations</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/contact">Contact</a></li>
+              </ul>
+            </div>
+            <div class="footer-links">
+              <h3>Contact Us</h3>
+              <ul>
+                <li><i class="bi bi-geo-alt"></i> Global Headquarters</li>
+                <li><i class="bi bi-geo-alt"></i> 123 Luxury Avenue, New York</li>
+                <li><i class="bi bi-telephone"></i> +1 (555) 123-4567</li>
+                <li><i class="bi bi-envelope"></i> info@elararegency.com</li>
+              </ul>
+            </div>
+          </div>
+          <div class="copyright">
+            &copy; <%= new Date().getFullYear() %> Elara Regency. All rights reserved.
+          </div>
+        </div>
+      </footer>
+
+      <!-- Gallery Modal -->
+      <div class="gallery-modal">
+        <div class="gallery-modal-content">
+          <img src="/placeholder.svg" alt="Gallery Image" class="gallery-modal-img">
+          <div class="gallery-modal-close"><i class="bi bi-x-lg"></i></div>
+          <div class="gallery-modal-nav gallery-modal-prev"><i class="bi bi-chevron-left"></i></div>
+          <div class="gallery-modal-nav gallery-modal-next"><i class="bi bi-chevron-right"></i></div>
+        </div>
       </div>
-    </div>
   </div>
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="/js/main.js"></script>
   <script>
     // Gallery Modal Functionality
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
       const galleryImages = document.querySelectorAll('.gallery-img');
       const modal = document.querySelector('.gallery-modal');
       const modalImg = document.querySelector('.gallery-modal-img');
       const modalClose = document.querySelector('.gallery-modal-close');
       const modalPrev = document.querySelector('.gallery-modal-prev');
       const modalNext = document.querySelector('.gallery-modal-next');
-      
+
       let currentImageIndex = 0;
       const images = Array.from(galleryImages).map(img => img.src);
 
       // Open modal on image click
       galleryImages.forEach((img, index) => {
-        img.addEventListener('click', function() {
+        img.addEventListener('click', function () {
           currentImageIndex = index;
           modalImg.src = this.src;
           modal.classList.add('active');
@@ -307,33 +288,33 @@
       });
 
       // Close modal
-      modalClose.addEventListener('click', function() {
+      modalClose.addEventListener('click', function () {
         modal.classList.remove('active');
       });
 
       // Click outside to close
-      modal.addEventListener('click', function(e) {
+      modal.addEventListener('click', function (e) {
         if (e.target === modal) {
           modal.classList.remove('active');
         }
       });
 
       // Previous image
-      modalPrev.addEventListener('click', function() {
+      modalPrev.addEventListener('click', function () {
         currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
         modalImg.src = images[currentImageIndex];
       });
 
       // Next image
-      modalNext.addEventListener('click', function() {
+      modalNext.addEventListener('click', function () {
         currentImageIndex = (currentImageIndex + 1) % images.length;
         modalImg.src = images[currentImageIndex];
       });
 
       // Keyboard navigation
-      document.addEventListener('keydown', function(e) {
+      document.addEventListener('keydown', function (e) {
         if (!modal.classList.contains('active')) return;
-        
+
         if (e.key === 'Escape') {
           modal.classList.remove('active');
         } else if (e.key === 'ArrowLeft') {
@@ -345,4 +326,5 @@
     });
   </script>
 </body>
+
 </html>

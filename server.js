@@ -1,12 +1,20 @@
 const express = require("express")
 const path = require("path")
 const fs = require("fs")
-const cors = require("cors")
-const helmet = require("helmet")
-const morgan = require("morgan")
-const compression = require("compression")
 const cookieParser = require("cookie-parser")
 const apiRoutes = require("./api/apiRoutes")
+
+// Import all middleware from index file
+const {
+  helmetConfig,
+  corsConfig,
+  morganLogger,
+  requestLogger,
+  compressionConfig,
+  isAuthenticated,
+  isAdmin,
+  redirectAdminToDashboard,
+} = require("./middlewares")
 
 const app = express()
 const PORT = process.env.PORT || 3000
@@ -15,65 +23,16 @@ const PORT = process.env.PORT || 3000
 app.set("view engine", "ejs")
 app.set("views", path.join(__dirname, "views"))
 
-// Middleware
-app.use(cors())
-app.use(
-  helmet({
-    contentSecurityPolicy: {
-      useDefaults: true,
-      directives: {
-        defaultSrc: ["'self'"],
-        scriptSrc: ["'self'", "'unsafe-inline'", "https://cdn.jsdelivr.net", "https://code.jquery.com"],
-        styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://cdn.jsdelivr.net"],
-        fontSrc: ["'self'", "https://fonts.gstatic.com", "https://cdn.jsdelivr.net"],
-        imgSrc: ["'self'", "data:", "https://images.unsplash.com"],
-        connectSrc: ["'self'"],
-      }
-    }
-  }),
-)
-app.use(morgan("dev"))
-app.use(compression())
+// Apply middleware
+app.use(corsConfig)
+app.use(helmetConfig)
+app.use(morganLogger)
+app.use(requestLogger)
+app.use(compressionConfig)
 app.use(cookieParser())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.static(path.join(__dirname, "public")))
-
-// Custom middleware to check if user is authenticated
-const isAuthenticated = (req, res, next) => {
-  const token = req.cookies.token
-  if (!token) {
-    return res.redirect("/login")
-  }
-  try {
-    // In a real app, you would verify the token
-    // For this example, we'll just check if it exists
-    next()
-  } catch (error) {
-    res.clearCookie("token")
-    return res.redirect("/login")
-  }
-}
-
-// Custom middleware to check if user is admin
-const isAdmin = (req, res, next) => {
-  const token = req.cookies.token
-  const isAdminUser = req.cookies.isAdmin === "true"
-
-  if (!token || !isAdminUser) {
-    return res.redirect("/login")
-  }
-  next()
-}
-
-// Middleware to redirect admin users to dashboard
-const redirectAdminToDashboard = (req, res, next) => {
-  const isAdminUser = req.cookies.isAdmin === "true"
-  if (isAdminUser && req.path !== "/admin-dashboard") {
-    return res.redirect("/admin-dashboard")
-  }
-  next()
-}
 
 // API Routes
 app.use("/api", apiRoutes)

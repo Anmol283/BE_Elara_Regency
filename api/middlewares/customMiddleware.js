@@ -1,7 +1,4 @@
-const logger = (req, res, next) => {
-  console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`)
-  next()
-}
+// Custom middleware for the Elara Regency application
 
 // Error handler middleware
 const errorHandler = (err, req, res, next) => {
@@ -35,7 +32,6 @@ const formatResponse = (req, res, next) => {
 }
 
 module.exports = {
-  logger,
   errorHandler,
   rateLimiter,
   validateRequest,
