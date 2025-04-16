@@ -21,32 +21,28 @@ router.post("/register", (req, res) => {
   try {
     const { name, email, password } = req.body
 
-    // Validate input
     if (!name || !email || !password) {
       return res.status(400).json({ success: false, message: "All fields are required" })
     }
 
     const usersData = getUsersData()
-
-    // Check if user already exists
     const userExists = usersData.users.some((user) => user.email === email)
+
     if (userExists) {
       return res.status(400).json({ success: false, message: "User already exists" })
     }
 
-    // Create new user
     const newUser = {
       id: usersData.users.length + 1,
       name,
       email,
-      password, // In a real app, this would be hashed
+      password, // In real apps, hash the password!
       isAdmin: false,
     }
 
     usersData.users.push(newUser)
     saveUsersData(usersData)
 
-    // Set cookie and respond
     res.cookie("token", "user-token-" + newUser.id, { httpOnly: true })
     res.cookie("isAdmin", "false", { httpOnly: true })
 
@@ -62,20 +58,17 @@ router.post("/login", (req, res) => {
   try {
     const { email, password } = req.body
 
-    // Validate input
     if (!email || !password) {
       return res.status(400).json({ success: false, message: "Email and password are required" })
     }
 
     const usersData = getUsersData()
-
-    // Find user
     const user = usersData.users.find((user) => user.email === email && user.password === password)
+
     if (!user) {
       return res.status(401).json({ success: false, message: "Invalid credentials" })
     }
 
-    // Set cookie and respond
     res.cookie("token", "user-token-" + user.id, { httpOnly: true })
     res.cookie("isAdmin", user.isAdmin.toString(), { httpOnly: true })
 
@@ -94,15 +87,13 @@ router.post("/login", (req, res) => {
 // Get all users (admin only)
 router.get("/users", (req, res) => {
   try {
-    // In a real app, you would check if the user is admin
     const isAdmin = req.cookies.isAdmin === "true"
+
     if (!isAdmin) {
       return res.status(403).json({ success: false, message: "Unauthorized" })
     }
 
     const usersData = getUsersData()
-
-    // Don't send passwords in response
     const safeUsers = usersData.users.map((user) => ({
       id: user.id,
       name: user.name,
@@ -122,13 +113,9 @@ router.post("/reservation", (req, res) => {
   try {
     const { checkIn, checkOut, roomType, guests, specialRequests } = req.body
 
-    // Validate input
     if (!checkIn || !checkOut || !roomType || !guests) {
       return res.status(400).json({ success: false, message: "Required fields missing" })
     }
-
-    // In a real app, you would save this to a database
-    // For this example, we'll just return success
 
     return res.status(200).json({
       success: true,
@@ -152,13 +139,9 @@ router.post("/contact", (req, res) => {
   try {
     const { name, email, subject, message } = req.body
 
-    // Validate input
     if (!name || !email || !subject || !message) {
       return res.status(400).json({ success: false, message: "All fields are required" })
     }
-
-    // In a real app, you would save this to a database or send an email
-    // For this example, we'll just return success
 
     return res.status(200).json({
       success: true,
@@ -168,6 +151,14 @@ router.post("/contact", (req, res) => {
     console.error("Contact form error:", error)
     return res.status(500).json({ success: false, message: "Server error" })
   }
+})
+
+// 404 handler (must be the last route)
+router.use((req, res) => {
+  res.status(404).json({
+    success: false,
+    message: "Route not found",
+  })
 })
 
 module.exports = router

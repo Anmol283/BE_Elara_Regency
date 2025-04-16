@@ -1,13 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><%= title %></title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Lora:wght@400;500;600&display=swap">
+  <title>
+    <%= title %>
+  </title>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Lora:wght@400;500;600&display=swap">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
   <link rel="stylesheet" href="/css/style.css">
 </head>
+
 <body>
   <!-- Header -->
   <header class="header">
@@ -38,41 +43,41 @@
     <div class="auth-form">
       <h2>Create an Account</h2>
       <p class="text-center">Join Elara Regency to access exclusive benefits and make reservations.</p>
-      
+
       <form id="registerForm" class="needs-validation" novalidate>
         <div class="form-group">
           <label for="name">Full Name</label>
           <input type="text" id="name" class="form-control" required>
           <div class="invalid-feedback">Please enter your full name.</div>
         </div>
-        
+
         <div class="form-group">
           <label for="email">Email Address</label>
           <input type="email" id="email" class="form-control" required>
           <div class="invalid-feedback">Please enter a valid email address.</div>
         </div>
-        
+
         <div class="form-group">
           <label for="password">Password</label>
           <input type="password" id="password" class="form-control" required minlength="6">
           <div class="invalid-feedback">Password must be at least 6 characters.</div>
         </div>
-        
+
         <div class="form-group">
           <label for="confirmPassword">Confirm Password</label>
           <input type="password" id="confirmPassword" class="form-control" required>
           <div class="invalid-feedback">Passwords do not match.</div>
         </div>
-        
+
         <div class="form-group">
           <button type="submit" class="btn" style="width: 100%;">Register</button>
         </div>
       </form>
-      
+
       <div class="form-divider">
         <span>or</span>
       </div>
-      
+
       <div class="text-center">
         <p>Already have an account? <a href="/login">Login</a></p>
       </div>
@@ -85,7 +90,8 @@
       <div class="footer-content">
         <div class="footer-about">
           <div class="footer-logo">Elara Regency</div>
-          <p>Setting new standards in luxury hospitality across the globe with our commitment to excellence and personalized service.</p>
+          <p>Setting new standards in luxury hospitality across the globe with our commitment to excellence and
+            personalized service.</p>
           <div class="social-links">
             <a href="#"><i class="bi bi-facebook"></i></a>
             <a href="#"><i class="bi bi-instagram"></i></a>
@@ -122,10 +128,10 @@
   <script src="/js/main.js"></script>
   <script>
     // Additional validation for registration form
-    document.getElementById('registerForm').addEventListener('submit', function(event) {
+    document.getElementById('registerForm').addEventListener('submit', function (event) {
       const password = document.getElementById('password').value;
       const confirmPassword = document.getElementById('confirmPassword').value;
-      
+
       if (password !== confirmPassword) {
         event.preventDefault();
         document.getElementById('confirmPassword').setCustomValidity('Passwords do not match');
@@ -135,4 +141,5 @@
     });
   </script>
 </body>
+
 </html>
